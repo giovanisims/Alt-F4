@@ -5,8 +5,8 @@ const port = 3000;
 
 app.use(express.static('./pages'))
 
-app.get ('/hello', (req, res) => {
-    res.send('Hello, World!');
+app.get ('', (req, res) => {
+    res.send('index');
 })
 
 app.listen(port, () => {

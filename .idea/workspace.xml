@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="844b2029-3a47-449d-955d-ba4ce65ecd72" name="Changes" comment="" />
+    <list default="true" id="213099fd-40c2-4366-823d-d2c45aba9cbd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Alt-F4.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/kid.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/man.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/woman.webp" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,25 +26,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;giovanisims&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "giovanisims"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/giovanisims/Alt-F4.git&quot;,
-    &quot;accountId&quot;: &quot;e3c177ff-caca-4ace-82ed-718c01ea37d9&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/giovanisims/Alt-F4.git",
+    "accountId": "e3c177ff-caca-4ace-82ed-718c01ea37d9"
   }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="2kiSuw08UXnGoBq5RX9ryPoEL8N" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2kx1AQswe2ALXQe9CtPAKcHWptJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/g10s1/Documents/PUCPR/periodo2/POO",
+    "last_opened_file_path": "C:/Users/g10s1/Documents/PUCPR/periodo2/DevWeb/aula03",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -50,38 +61,23 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\g10s1\Documents\PUCPR\periodo2\DevWeb\main-website\Alt-F4" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\g10s1\Documents\PUCPR\periodo2\DevWeb\main-website\Alt-F4\pages" />
-      <recent name="C:\Users\g10s1\Documents\PUCPR\periodo2\DevWeb\main-website\Alt-F4\node_modules" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.300" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.300" />
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.40" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.40" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="844b2029-3a47-449d-955d-ba4ce65ecd72" name="Changes" comment="" />
-      <created>1723765130478</created>
+      <changelist id="213099fd-40c2-4366-823d-d2c45aba9cbd" name="Changes" comment="" />
+      <created>1724210270622</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1723765130478</updated>
-      <workItem from="1723765131644" duration="519000" />
-      <workItem from="1723765728112" duration="2750000" />
-      <workItem from="1724097694064" duration="2000" />
-      <workItem from="1724100099145" duration="13000" />
-      <workItem from="1724100120853" duration="214000" />
-      <workItem from="1724100362518" duration="184000" />
-      <workItem from="1724101062131" duration="8000" />
+      <updated>1724210270622</updated>
+      <workItem from="1724210271914" duration="318000" />
     </task>
     <servers />
   </component>
