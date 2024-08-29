@@ -76,12 +76,47 @@ main {
     margin-top: 5%;
 }
 
-.icons{
-    width: 8%;
+.icons {
     display: flex;
     justify-content: space-around;
+    gap: 50%;
 }
 
 .colorIcons {
     color: white;
+}
+
+#menuButton {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #navBar {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #6D6D6D;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    #navBar li {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+    #navBar a {
+        width: 100%;
+    }
+    #menuButton {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.navActive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
