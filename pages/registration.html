@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="form">
+        <form>
+            <button type="button" class="exitIcon" onclick="location.href='index.html'"><i class="fa-solid fa-xmark"></i></button>
+            <h1>Cadastre-se</h1>
+            <div class="group firstGroup">
+                <div class="formGroup">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf">
+                </div>
+                <div class="formGroup">
+                    <label for="email">Email</label>
+                    <input type="email" id="email">
+                </div>
+                <span class="errorLabel" id="requiredFG">Os campos são obrigatórios</span>
+                <button type="submit" class="btn-continue">Continuar</button>
+                <a href="login.html">Já possui conta? Faça o Login!</a>
+            </div>
+            <div class="group secondGroup">
+                <div class="formGroup">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name">
+                </div>
+                <div class="formGroup">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" id="phone">
+                </div>
+                <div class="formGroup">
+                    <label for="birthdate">Data de Nascimento</label>
+                    <input type="date" id="birthdate">
+                </div>
+                <span class="errorLabel" id="requiredSG">Os campos são obrigatórios</span>
+                <div class="iconsRegistration">
+                    <button type="button" title="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button type="button" title="Next"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="group thirdGroup">
+                <div class="formGroup">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep">
+                </div>
+                <div class="formGroup">
+                    <label for="address">Endereço</label>
+                    <input type="text" id="address">
+                </div>
+                <div class="formGroup">
+                    <label for="houseNum">Número</label>
+                    <input type="number" id="houseNum">
+                </div>
+                <div class="formGroup">
+                    <label for="complement">Complemento</label>
+                    <input type="text" id="complement">
+                </div>
+                <span class="errorLabel" id="requiredTG">Os campos são obrigatórios</span>
+                <div class="iconsRegistration">
+                    <button type="button" title="Go back"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button type="button" title="Next"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="group fourthGroup">
+                <div class="formGroup">
+                    <label for="username">Username</label>
+                    <input type="text" id="username">
+                </div>
+                <div class="formGroup">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password">
+                </div>
+                <div class="formGroup">
+                    <label for="confirmPassword">Confirmar senha</label>
+                    <input type="password" id="confirmPassword">
+                </div>
+                <span class="errorLabel" id="requiredFOG">Os campos são obrigatórios</span>
+                <span class="errorLabel" id="passwordLenght">A senha deve ter entre 8 e 16 caracteres </span>
+                <span class="errorLabel" id="passwordRegex">A senha deve conter uma letra maiúscula e um caractere especial</span>
+                <span class="errorLabel"id="passwordConfirmation">As senhas devem ser iguais</span>
+                <button type="submit">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+    <script src="registration.js"></script>
+</body>
+
+</html>
