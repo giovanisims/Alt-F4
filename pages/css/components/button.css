@@ -1,0 +1,15 @@
+button{
+    background-color: #6D6D6D;
+    color: #fff;
+    width: 75%;
+    height: 40px;
+    font-family: 'Noto sans', serif;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    border: none;
+}
+
+button:hover {
+    background-color:#313715;
+    cursor: pointer;
+}

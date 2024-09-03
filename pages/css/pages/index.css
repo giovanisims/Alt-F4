@@ -1,0 +1,33 @@
+@import url('../pages/main.css');
+@import url('../layout/header.css');
+
+
+main {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.category {
+    text-align: center;
+    background-color: #E8EBED;
+    padding: 20px;
+    width: 30%;
+}
+
+.category img {
+    width: 100%;
+    height: auto;
+}
+
+.category p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: 'Exo 2', sans-serif;
+    margin-top: 5%;
+}
+
+.colorIcons {
+    color: white;
+}
+
