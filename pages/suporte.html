@@ -10,19 +10,19 @@
   <body>
     <header>
       <div class="logo">
-        <img src="images/logo.png" alt="Alt+F4 Logo" />
+        <img src="images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'" style="cursor: pointer;">
       </div>
       <nav id="navBar">
         <ul class="menuBar">
           <li><a href="index.html">Home</a></li>
           <li><a href="mobile.html">Mobile</a></li>
-          <li><a href="#">Console</a></li>
+          <li><a href="console.html">Console</a></li>
         </ul>
-        <div class="logoText">Alt+F4</div>
+        <div class="logoText" onclick="location.href='index.html'" style="cursor: pointer;">Alt+F4</div>
         <ul class="menuBar">
-          <li><a href="#">PC</a></li>
-          <li><a href="#">Suporte</a></li>
-          <li><a href="#">Sobre nós</a></li>
+          <li><a href="pc.html">PC</a></li>
+          <li><a href="suporte.html">Suporte</a></li>
+          <li><a href="sobreNos.html">Sobre nós</a></li>
         </ul>
       </nav>
       <div class="icons">
@@ -30,7 +30,7 @@
           class="fa-solid fa-circle-user colorIcons"
           onclick="location.href='login.html'"
         ></i>
-        <i class="fa-solid fa-cart-shopping colorIcons"></i>
+        <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
         <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
       </div>
     </header>
@@ -41,15 +41,15 @@
                 <form action="">
             <div class="form-group">
               <label for="name">Nome:</label>
-              <input type="text" id="name" name="name" required />
+              <input type="text" id="name" name="name" placeholder="Nome" required />
             </div>
             <div class="form-group">
               <label for="email">Email:</label>
-              <input type="email" id="email" name="email" required />
+              <input type="email" id="email" name="email" placeholder="Email" required />
             </div>
             <div class="form-group">
               <label for="message">Mensagem:</label>
-              <textarea id="message" name="message" required></textarea>
+              <textarea id="message" name="message" placeholder="Digite sua mensagem"></textarea>
             </div>
             <button type="submit">Enviar</button>
           </form>

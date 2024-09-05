@@ -1,0 +1,9 @@
+@import url('../components/button.css');
+@import url('../components/input.css');
+@import url('main.css');
+@import url('../layout/header.css');
+
+h1{
+    justify-content: center;
+    text-align: center;
+}

@@ -1,0 +1,16 @@
+@import url('../components/button.css');
+@import url('../components/input.css');
+@import url('../pages/main.css');
+@import url('../layout/header.css');
+
+
+body{
+    background-color: #6d6d6d;
+}
+
+h1{
+    justify-content: center;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    color: #170a1c;
+}
