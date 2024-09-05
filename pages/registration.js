@@ -71,6 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 hideError("#requiredFG");
             }
+            if(!email.includes("@")){
+                showError("#requiredEmail");
+            }
+            else{
+                hideError("#requiredEmail");
+            }
         }
     
         if (currentGroup === 1) { 
@@ -100,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 showError("#passwordLenght");
             } else {
                 hideError("#passwordLenght");
+
             }
     
             const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])/;
@@ -107,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 showError("#passwordRegex");
             } else {
                 hideError("#passwordRegex");
+
             }
     
             if (password !== confirmPassword) {
