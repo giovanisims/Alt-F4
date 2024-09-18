@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/pages/console.css">
+    <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
+    <link rel="stylesheet" href="css/pages/mobile.css">
     <title>Console</title>
 </head>
+
 <body>
     <header>
         <div class="logo">
-            <img src="images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'" style="cursor: pointer;">
+            <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
         </div>
         <nav id="navBar">
             <ul class="menuBar">
@@ -18,8 +21,8 @@
                 <li><a href="mobile.html">Mobile</a></li>
                 <li><a href="console.html">Console</a></li>
             </ul>
-            <div class="logoText" onclick="location.href='index.html'" style="cursor: pointer;">Alt+F4</div>
-            <ul class="menuBar"> 
+            <div class="logoText" onclick="location.href='index.html'">Alt+F4</div>
+            <ul class="menuBar">
                 <li><a href="pc.html">PC</a></li>
                 <li><a href="suporte.html">Suporte</a></li>
                 <li><a href="sobreNos.html">Sobre nós</a></li>
@@ -32,22 +35,61 @@
         </div>
     </header>
     <main>
-        <h1>Console</h1>
+        <div class="container">
+            <div class="products">
+                <div class="productCard">
+                    <div class="productImage">
+                        <img src="https://via.placeholder.com/250x150" alt="Produto 1">
+                    </div>
+                    <div class="productInfo">
+                        <h3>Produto 1</h3>
+                        <p>Descrição breve do produto 1.</p>
+                        <div class="productPrice">R$ 99,90</div>
+                        <a href="#" class="buyButton">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="productCard">
+                    <div class="productImage">
+                        <img src="https://via.placeholder.com/250x150" alt="Produto 2">
+                    </div>
+                    <div class="productInfo">
+                        <h3>Produto 2</h3>
+                        <p>Descrição breve do produto 2.</p>
+                        <div class="productPrice">R$ 149,90</div>
+                        <a href="#" class="buyButton">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="productCard">
+                    <div class="productImage">
+                        <img src="https://via.placeholder.com/250x150" alt="Produto 3">
+                    </div>
+                    <div class="productInfo">
+                        <h3>Produto 3</h3>
+                        <p>Descrição breve do produto 3.</p>
+                        <div class="productPrice">R$ 199,90</div>
+                        <a href="#" class="buyButton">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script>
-        document.getElementById('menuButton').addEventListener('click', function(){
+        document.getElementById('menuButton').addEventListener('click', function () {
             const nav = document.getElementById("navBar");
             const computedStyle = window.getComputedStyle(nav);
             const display = computedStyle.display;
-    
-            if (display === "none"){
+
+            if (display === "none") {
                 nav.style.display = "flex";
             }
-            else{
+            else {
                 nav.style.display = "none";
             }
-    
+
         });
     </script>
 </body>
+
 </html>

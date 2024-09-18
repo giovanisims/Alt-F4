@@ -10,6 +10,7 @@ header {
 .logo img {
     height: 9vh;
     width: 100%;
+    cursor: pointer;
 }
 
  nav{  
@@ -40,6 +41,7 @@ nav ul li a {
     font-weight: 500;
     font-size: 2.2rem;
     color: #E8EBED;
+    cursor: pointer;
 }
 
 .icons {
