@@ -62,10 +62,9 @@ button{
     display: none;
 }
 
-/* Reduz o brilho do conteúdo */
 .dimmed {
     filter: brightness(0.4);
-    pointer-events: none; /* Impede que o usuário interaja com o conteúdo por trás */
+    pointer-events: none; 
 }
 
 #cart {
@@ -82,7 +81,7 @@ body.dimBackground::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro sem brilho */
-    z-index: 1000; /* Camada atrás do pop-up */
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 1000;
 }
 
