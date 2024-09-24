@@ -1,0 +1,88 @@
+@import url('../components/button.css');
+
+
+.cartPopUp{
+    height: 35vh;
+    width: 30%;
+    margin-left: 70%;
+    box-shadow: -10px 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    position: relative;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.infoCart{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 2%;
+}
+
+.title i:nth-child(1) {
+    color: #17ae00;
+}
+
+.title i:nth-child(3) {
+    cursor: pointer;
+    align-self: flex-start;
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+.title p{
+    font-family: 'Exo 2';
+    font-size: 0.95rem;
+    margin-left: -40%;
+}
+
+.middle{
+    width: 90%;
+    display: flex;
+    gap: 10%;
+}
+
+.middle p{
+    font-family: 'Noto sans', sans-serif;
+    font-size: 0.8rem;
+    line-height: 80%;
+}
+
+button{
+    margin-top: 5%;
+}
+
+#cart{
+    display: none;
+}
+
+/* Reduz o brilho do conteúdo */
+.dimmed {
+    filter: brightness(0.4);
+    pointer-events: none; /* Impede que o usuário interaja com o conteúdo por trás */
+}
+
+#cart {
+    display: none;
+    position: fixed;
+    top: 11%;
+    z-index: 1001;
+}
+
+body.dimBackground::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo escuro sem brilho */
+    z-index: 1000; /* Camada atrás do pop-up */
+}
+
