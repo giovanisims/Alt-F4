@@ -2,6 +2,7 @@
 @import url('../components/input.css');
 @import url('main.css');
 @import url('../layout/header.css');
+@import url('../components/cartPopUp.css');
 
 h1{
     justify-content: center;

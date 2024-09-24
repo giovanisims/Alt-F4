@@ -6,75 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
-    <link rel="stylesheet" href="css/pages/mobile.css">
+    <link rel="stylesheet" href="css/pages/pc.css">
     <title>PC</title>
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
-        </div>
-        <nav id="navBar">
-            <ul class="menuBar">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="mobile.html">Mobile</a></li>
-                <li><a href="console.html">Console</a></li>
-            </ul>
-            <div class="logoText" onclick="location.href='index.html'">Alt+F4</div>
-            <ul class="menuBar">
-                <li><a href="pc.html">PC</a></li>
-                <li><a href="suporte.html">Suporte</a></li>
-                <li><a href="sobreNos.html">Sobre nós</a></li>
-            </ul>
-        </nav>
-        <div class="icons">
-            <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login.html'"></i>
-            <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
-            <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <div class="products">
-                <div class="productCard">
-                    <div class="productImage">
-                        <img src="https://via.placeholder.com/250x150" alt="Produto 1">
+    <div class="contentContainer">
+        <header>
+            <div class="logo">
+                <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
+            </div>
+            <nav id="navBar">
+                <ul class="menuBar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mobile.html">Mobile</a></li>
+                    <li><a href="console.html">Console</a></li>
+                </ul>
+                <div class="logoText" onclick="location.href='index.html'">Alt+F4</div>
+                <ul class="menuBar">
+                    <li><a href="pc.html">PC</a></li>
+                    <li><a href="suporte.html">Suporte</a></li>
+                    <li><a href="sobreNos.html">Sobre nós</a></li>
+                </ul>
+            </nav>
+            <div class="icons">
+                <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login.html'"></i>
+                <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
+                <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="products">
+                    <div class="productCard">
+                        <div class="productImage">
+                            <img src="https://via.placeholder.com/250x150" alt="Produto 1">
+                        </div>
+                        <div class="productInfo">
+                            <h3>Produto 1</h3>
+                            <p>Descrição breve do produto 1.</p>
+                            <div class="productPrice">R$ 99,90</div>
+                            <a href="#" class="buyButton">Comprar</a>
+                        </div>
                     </div>
-                    <div class="productInfo">
-                        <h3>Produto 1</h3>
-                        <p>Descrição breve do produto 1.</p>
-                        <div class="productPrice">R$ 99,90</div>
-                        <a href="#" class="buyButton">Comprar</a>
-                    </div>
-                </div>
 
-                <div class="productCard">
-                    <div class="productImage">
-                        <img src="https://via.placeholder.com/250x150" alt="Produto 2">
+                    <div class="productCard">
+                        <div class="productImage">
+                            <img src="https://via.placeholder.com/250x150" alt="Produto 2">
+                        </div>
+                        <div class="productInfo">
+                            <h3>Produto 2</h3>
+                            <p>Descrição breve do produto 2.</p>
+                            <div class="productPrice">R$ 149,90</div>
+                            <a href="#" class="buyButton">Comprar</a>
+                        </div>
                     </div>
-                    <div class="productInfo">
-                        <h3>Produto 2</h3>
-                        <p>Descrição breve do produto 2.</p>
-                        <div class="productPrice">R$ 149,90</div>
-                        <a href="#" class="buyButton">Comprar</a>
-                    </div>
-                </div>
 
-                <div class="productCard">
-                    <div class="productImage">
-                        <img src="https://via.placeholder.com/250x150" alt="Produto 3">
-                    </div>
-                    <div class="productInfo">
-                        <h3>Produto 3</h3>
-                        <p>Descrição breve do produto 3.</p>
-                        <div class="productPrice">R$ 199,90</div>
-                        <a href="#" class="buyButton">Comprar</a>
+                    <div class="productCard">
+                        <div class="productImage">
+                            <img src="https://via.placeholder.com/250x150" alt="Produto 3">
+                        </div>
+                        <div class="productInfo">
+                            <h3>Produto 3</h3>
+                            <p>Descrição breve do produto 3.</p>
+                            <div class="productPrice">R$ 199,90</div>
+                            <a href="#" class="buyButton">Comprar</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </main>
+    </div>
+    <div class="cartPopUp" id="cart">
+        <div class="infoCart">
+            <div class="title">
+                <i class="fa-regular fa-circle-check"></i>
+                <p>Adicionado ao carrinho</p>
+                <i class="fa-solid fa-xmark" id="close"></i>
+            </div>
+            <div class="middle">
+                <img src="https://placehold.co/70">
+                <div class="infoProduct">
+                    <p>Nome Produto</p>
+                    <p>Tamanho</p>
+                    <p>R$000,0</p>
+                </div>
+            </div>
+            <button onclick="location.href='cart.html'">Ver carrinho</button>
         </div>
-    </main>
+    </div>
     <script>
         document.getElementById('menuButton').addEventListener('click', function () {
             const nav = document.getElementById("navBar");
@@ -87,7 +107,26 @@
             else {
                 nav.style.display = "none";
             }
+        });
 
+        const buyButtons = document.getElementsByClassName('buyButton');
+        for (let i = 0; i < buyButtons.length; i++) {
+            buyButtons[i].addEventListener('click', function (event) {
+                event.preventDefault();
+                const cart = document.getElementById('cart');
+                const contentContainer = document.querySelector('.contentContainer');
+                document.body.classList.add('dimBackground');
+                contentContainer.classList.add('dimmed');
+                cart.style.display = "block";
+            });
+        }
+
+        document.getElementById('close').addEventListener('click', function () {
+            const cart = document.getElementById('cart');
+            const contentContainer = document.querySelector('.contentContainer');
+            document.body.classList.remove('dimBackground');
+            contentContainer.classList.remove('dimmed');
+            cart.style.display = 'none';
         });
     </script>
 </body>

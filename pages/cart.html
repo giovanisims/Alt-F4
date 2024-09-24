@@ -11,22 +11,93 @@
 </head>
 
 <body>
-    <div class="form">
-        <form id="loginForm">
-            <button type="button" class="exitIcon" onclick="location.href='index.html'"><i class="fa-solid fa-xmark"></i></button>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
+        </div>
+        <nav id="navBar">
+            <ul class="menuBar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="console.html">Console</a></li>
+            </ul>
+            <div class="logoText" onclick="location.href='index.html'">Alt+F4</div>
+            <ul class="menuBar">
+                <li><a href="pc.html">PC</a></li>
+                <li><a href="suporte.html">Suporte</a></li>
+                <li><a href="sobreNos.html">Sobre nós</a></li>
+            </ul>
+        </nav>
+        <div class="icons">
+            <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login.html'"></i>
+            <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
+            <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
+        </div>
+    </header>
+    <div class="content">
+        <div class="title">
             <h1>Carrinho</h1>
-            <div class="group firstGroup">
-                <!-- <div class="formGroup">
-                    <label for="username">Username</label>
-                    <input type="text" id="username">
-                </div>
-                <div class="formGroup">
-                    <label for="password">Password</label>
-                    <input type="password" id="password">
-                </div>
-                <span class="errorLabel" id="required">Os campos são obrigatórios</span>
-                <button type="submit" onsubmit="login()">Enviar</button>
-                <a href="registration.html">Novo por aqui? Cadastre-se!</a> -->
-            </div>
-        </form>
+            <a href="index.html">continue comprando</a>
+        </div>
     </div>
+    <div class="content">
+        <main>
+            <div class="product">
+                <img src="https://placehold.co/100" alt="foto do produto">
+                <div class="productInfo">
+                    <div class="productName">
+                        <h4>Marca</h4>
+                        <p>Nome do produto</p>
+                        <p>id:00000000</p>
+                    </div>
+                    <div class="productPrice">
+                        <h4>R$000,0</h4>
+                        <p>Até x12 sem júros</p>
+                    </div>
+                    <div class="productSize">
+                        <h4>Tamanho</h4>
+                        <p>Único</p>
+                        <label>Quantidade</label><br>
+                        <input type="number" min="0" value="1">
+                    </div>
+                </div>
+                <i class="fa-solid fa-xmark selfAlign"></i>
+            </div>
+        </main>
+        <aside>
+            <div class="summary">
+                <h3>Resumo</h3>
+                <div class="summaryInfo">
+                    <h5>Subtotal</h5>
+                    <p>R$000,00</p>
+                </div>
+                <div class="summaryInfo">
+                    <h5>Frete</h5>
+                    <p>R$00,0</p>
+                </div>
+                <div class="summaryInfo">
+                    <h4>Total</h4>
+                    <p>R$000,0</p>
+                </div>
+                <button>Finalizar compra</button>
+            </div>
+        </aside>
+    </div>
+    <script>
+        document.getElementById('menuButton').addEventListener('click', function () {
+            const nav = document.getElementById("navBar");
+            const computedStyle = window.getComputedStyle(nav);
+            const display = computedStyle.display;
+
+            if (display === "none") {
+                nav.style.display = "flex";
+            }
+            else {
+                nav.style.display = "none";
+            }
+
+        });
+    </script>
+</body>
+
+</html>
