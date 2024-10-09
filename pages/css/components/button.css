@@ -7,9 +7,11 @@ button{
     font-size: 0.8rem;
     border-radius: 10px;
     border: none;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
 }
 
 button:hover {
-    background-color:#313715;
-    cursor: pointer;
+    background-color: #04340a;
 }

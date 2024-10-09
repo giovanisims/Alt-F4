@@ -1,11 +1,56 @@
+
+document.getElementById('signUp').addEventListener('click', function () {
+    document.querySelector('.image').style.left = '0';
+
+    document.getElementById('signIn').classList.remove('no-pointer-events');
+    document.getElementById('signUp').classList.add('no-pointer-events');
+});
+
+document.getElementById('signIn').addEventListener('click', function () {
+    document.querySelector('.image').style.left = '50%';
+
+     document.getElementById('signUp').classList.remove('no-pointer-events');
+    document.getElementById('signIn').classList.add('no-pointer-events');
+});
+
+
+function searchAddress() {
+    let cep = document.getElementById("cep").value;
+    cep = cep.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+    if (cep.length === 8) {
+        let url = `https://viacep.com.br/ws/${cep}/json/`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (!("erro" in data)) {
+                    document.getElementById("address").value = data.logradouro;
+                    //document.getElementById("bairro").value = data.bairro;
+                    document.getElementById("city").value = data.localidade;
+                    //document.getElementById("estado").value = data.uf;
+                } else {
+                    alert("CEP não encontrado.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o CEP:', error);
+                alert("Erro ao buscar o CEP.");
+            });
+    } else {
+        alert("CEP inválido.");
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const groups = document.querySelectorAll(".group");
     let currentGroup = 0;
 
     groups[currentGroup].style.display = "flex";
 
-    const nextButtons = document.querySelectorAll(".fa-arrow-right, .btn-continue");
-    const backButtons = document.querySelectorAll(".fa-arrow-left");
+    const nextButtons = document.querySelectorAll(".next, .btn-continue");
+    const backButtons = document.querySelectorAll(".previous");
+    const submit = document.getElementById("submit");
 
     function goToNextGroup() {
         if (currentGroup < groups.length - 1) {
@@ -38,20 +83,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    submit.addEventListener("click", function (event) {
+        event.preventDefault();
+        registration(event);
+    });
+
     function registration(event) {
         event.preventDefault();
         
         const cpf = document.getElementById("cpf")?.value || '';
-        const email = document.getElementById("email")?.value || '';
+        const emailR = document.getElementById("emailR")?.value || '';
         const name = document.getElementById("name")?.value || '';
         const phone = document.getElementById("phone")?.value || '';
         const birthdate = document.getElementById("birthdate")?.value || '';
         const cep = document.getElementById("cep")?.value || '';
+        const city = document.getElementById("city")?.value || '';
         const address = document.getElementById("address")?.value || '';
         const houseNum = document.getElementById("houseNum")?.value || '';
         const complement = document.getElementById("complement")?.value || '';
         const username = document.getElementById("username")?.value || '';
-        const password = document.getElementById("password")?.value || '';
+        const passwordR = document.getElementById("passwordR")?.value || '';
         const confirmPassword = document.getElementById("confirmPassword")?.value || '';
     
         let valid = true;
@@ -66,12 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         if (currentGroup === 0) { 
-            if (!cpf || !email) {
+            if (!cpf || !emailR) {
                 showError("#requiredFG");
             } else {
                 hideError("#requiredFG");
             }
-            if(!email.includes("@")){
+            if(!emailR.includes("@")){
                 showError("#requiredEmail");
             }
             else{
@@ -88,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         if (currentGroup === 2) { 
-            if (!cep || !address || !houseNum || !complement) {
+            if (!cep || !city || !address || !houseNum || !complement) {
                 showError("#requiredTG");
             } else {
                 hideError("#requiredTG");
@@ -96,13 +147,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         if (currentGroup === 3) {
-            if (!username | !password || !confirmPassword) {
+            if (!username | !passwordR || !confirmPassword) {
                 showError("#requiredFOG");
             } else {
                 hideError("#requiredFOG");
             }
     
-            if (password.length < 8 || password.length > 16) {
+            if (passwordR.length < 8 || passwordR.length > 16) {
                 showError("#passwordLenght");
             } else {
                 hideError("#passwordLenght");
@@ -110,14 +161,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
     
             const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])/;
-            if (!passwordRegex.test(password)) {
+            if (!passwordRegex.test(passwordR)) {
                 showError("#passwordRegex");
             } else {
                 hideError("#passwordRegex");
 
             }
     
-            if (password !== confirmPassword) {
+            if (passwordR !== confirmPassword) {
                 showError("#passwordConfirmation");
             } else {
                 hideError("#passwordConfirmation");
@@ -129,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentGroup === groups.length - 1) {
                 document.querySelector("form").submit();
                 alert("Cadastro finalizado com sucesso!")
-                window.location.href = "login.html"; 
+                window.location.href = "login_registration.html"; 
             } else {
                 goToNextGroup(); 
             }
@@ -141,3 +192,19 @@ document.addEventListener("DOMContentLoaded", function () {
         registration(event);
     });
 });
+
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("loginForm").addEventListener("submit", function(event){
+        const email = document.getElementById("email")?.value || '';
+        const password = document.getElementById("password")?.value || '';
+
+        if(!email || !password){
+            document.getElementById("required").style.display = "block";
+            event.preventDefault();
+        }
+        else {
+            document.getElementById("required").style.display = "none"
+            document.getElementById("loginForm").submit();
+        }
+    })
+} )
