@@ -24,7 +24,7 @@ nav ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
-    width: 35%; /*Sem o logo no meio = 135%*/
+    width: 135%; /*Com o logo no meio = 35%*/
     margin: 0;
     padding: 0;
 }
