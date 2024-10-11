@@ -28,7 +28,7 @@ function searchAddress() {
                     document.getElementById("address").value = data.logradouro;
                     //document.getElementById("bairro").value = data.bairro;
                     document.getElementById("city").value = data.localidade;
-                    //document.getElementById("estado").value = data.uf;
+                    document.getElementById("state").value = data.uf;
                 } else {
                     alert("CEP não encontrado.");
                 }
@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const birthdate = document.getElementById("birthdate")?.value || '';
         const cep = document.getElementById("cep")?.value || '';
         const city = document.getElementById("city")?.value || '';
+        const state = document.getElementById("state")?.value || '';
         const address = document.getElementById("address")?.value || '';
         const houseNum = document.getElementById("houseNum")?.value || '';
         const complement = document.getElementById("complement")?.value || '';
@@ -139,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         if (currentGroup === 2) { 
-            if (!cep || !city || !address || !houseNum || !complement) {
+            if (!cep || !city || !state || !address || !houseNum || !complement) {
                 showError("#requiredTG");
             } else {
                 hideError("#requiredTG");
