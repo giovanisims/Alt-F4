@@ -4,6 +4,10 @@
 @import url('../layout/header.css');
 @import url('../components/cartPopUp.css');
 
+li:nth-child(2){
+    border-bottom: 1px solid #E8EBED;
+}
+
 h1{
     justify-content: center;
     text-align: center;

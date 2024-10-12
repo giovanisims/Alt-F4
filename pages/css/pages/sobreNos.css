@@ -14,3 +14,7 @@ h1{
     font-family: 'Exo 2', sans-serif;
     color: #170a1c;
 }
+
+li:nth-child(6){
+    border-bottom: 1px solid #E8EBED;
+}
