@@ -1,91 +1,116 @@
-@import url('../components/button.css');
-@import url('../components/input.css');
 @import url('main.css');
 @import url('../layout/header.css');
 @import url('../components/cartPopUp.css');
 
-h1{
-    justify-content: center;
-    text-align: center;
+li:nth-child(3){
+    border-bottom: 1px solid #E8EBED;
 }
 
-.container {
-    width: 90%;
-    margin: 20px auto;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    color: #333;
-}
-
-.products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.productCard {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 10px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-.productCard:hover {
-    transform: scale(1.05);
-}
-
-.productImage img {
-    max-width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.productInfo {
-    padding: 15px;
-}
-
-.productInfo h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.productInfo p {
-    font-size: 0.8rem;
-    color: #666;
-    margin-bottom: 15px;
-}
-
-.productPrice {
-    font-size: 1.1rem;
-    color: #313715;
-    margin-bottom: 15px;
-}
-
-.buyButton {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
+body{
+    font-family: 'Noto sans', sans-serif;
     background-color: #6D6D6D;
-    color: #fff;
-    width: 75%;
-    height: 20px;
-    font-family: 'Noto sans', serif;
-    font-size: 0.8rem;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
 }
 
-.buyButton:hover {
-    background-color:#313715;
-    cursor: pointer;
+.pag{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.img-s{
+    width: 30%;
+    aspect-ratio: 1 / 1;
+}
+
+.imgs-s .img-s{
+    width: 100%;
+}
+
+.img-m{
+    width: 40%;
+    aspect-ratio: 2 / 1.2;
+}
+
+.img-lg{
+    width: 65%;
+    aspect-ratio: 2 / 1.3;
+}
+
+.img-2lg{
+    width: 95%;
+    aspect-ratio: 2 / 1;
+}
+
+.imgs-s{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px
+}
+
+.img{
+    position: relative;
+    border-radius: 10px;
+}
+
+img:hover{
+    filter: brightness(0.5) blur(2px);
+}
+
+.text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    top: 5%;
+    left: 5%;
+    transform: translate(0, 0);
+    z-index: 1;
+    color: transparent;
+    font-size: 1rem;
+}
+
+p{
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.img i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    top: 10%;
+    left: 80%;
+    transform: translate(0, 0);
+    transform: rotate(45deg);
+    z-index: 1;
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.img:hover i{
+    color: #fff;
+    top: 8%;
+    left: 85%;
+}
+
+.img:hover p{
+    margin-top: -2%;
+    color: #E8EBED;
+    top: 8%;
+    left: 85%;
+}
+
+.img:hover .text{
+    color: #E8EBED;
 }

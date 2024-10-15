@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
+    <link rel="stylesheet" href="css/pages/login_registration.css">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="login-registration">
+        <img src="images/loginphoto.png" alt="Imagem sobre a div" class="image">
+        <div class="side">
+            <div class="go-back" onclick="location.href='index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <form action="profile.html" id="loginForm">
+                <div class="title">
+                    <h2>Welcome Back!</h2>
+                    <p>Enter your credentials to access your account</p>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
+                </div>
+                <span class="error-label" id="required">Os campos são obrigatórios</span>
+                <span class="error-label" id="requiredE">Digite um email válido</span>
+                <button type="submit">Sign In</button>
+                <p class="sign" id="signUp">Don't have an account? Sign up.</p>
+            </form>
+        </div>
+        <div class="side">
+            <div class="go-back" onclick="location.href='index.html'">
+                <i class="fa-solid fa-arrow-left"></i>
+            </div>
+            <form>
+                <h2>Get Started Now</h2>
+                <p>Enter your credentials to access your account</p>
+                <div class="group">
+                    <div class="form-group">
+                        <label for="emailR">Email</label>
+                        <input type="email" name="emailR" id="emailR" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" name="cpf" id="cpf" placeholder="Enter your CPF">
+                    </div>
+                    <span class="error-label" id="requiredFG">Os campos são obrigatórios</span>
+                    <span class="error-label" id="requiredEmail">Digite um email válido</span>
+                    <button type="button" class="btn-continue">Continue</button>
+                    <p class="sign" id="signIn">Have an account? Sign in.</p>
+                </div>
+                <div class="group">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number</label>
+                        <input type="text" name="phone" id="phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Birthdate</label>
+                        <input type="date" name="birthdate" id="birthdate">
+                    </div>
+                    <span class="error-label" id="requiredSG">Os campos são obrigatórios</span>
+                    <div class="buttons">
+                        <button type="button" class="previous">Previous</button>
+                        <button type="button" class="next">Next</button>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="cep-city">
+                        <div class="form-group">
+                            <label for="cep">CEP</label>
+                            <input type="text" id="cep" name="cep" onblur="searchAddress()" maxlength="9"
+                                placeholder="Enter your CEP">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" name="city" id="city" placeholder="Enter your City" readonly>
+                        </div>
+                    </div>
+                    <div class="cep-city">
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" name="state" id="state" placeholder="Enter your state" readol>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" name="address" id="address" placeholder="Enter your address" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="houseNum">Número</label>
+                        <input type="number" name="houseNum" id="houseNum" placeholder="Enter your house number">
+                    </div>
+                    <div class="form-group">
+                        <label for="complement">Complemento</label>
+                        <input type="text" name="complement" id="complement" placeholder="Enter your complement">
+                    </div>
+                    <span class="error-label" id="requiredTG">Os campos são obrigatórios</span>
+                    <div class="buttons">
+                        <button type="button" class="previous">Previous</button>
+                        <button type="button" class="next">Next</button>
+                    </div>
+                </div>
+                <div class="group" style="display: none;">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter your desired username">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordR">Password</label>
+                        <input type="password" name="passwordR" id="passwordR" placeholder="Enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar Password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword"
+                            placeholder="Confirmar senha">
+                    </div>
+                    <span class="error-label" id="requiredFOG">Os campos são obrigatórios</span>
+                    <span class="error-label" id="passwordLenght">A senha deve ter entre 8 e 16 caracteres</span>
+                    <span class="error-label" id="passwordRegex">A senha deve conter uma letra maiúscula e um caractere
+                        especial</span>
+                    <span class="error-label" id="passwordConfirmation">As senhas devem ser iguais</span>
+                    <button id="submit" type="submit">Sign in</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="login_registration.js"></script>
+</body>
+
+</html>

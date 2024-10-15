@@ -1,121 +1,169 @@
-@import url('../components/button.css');
-@import url('../components/input.css');
-@import url('../pages/main.css');
+@import url('main.css');
 
-body{
-    background-color: #6d6d6d;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.form{
+.login-registration{
     width: 100%;
     height: 100vh;
     display: flex;
+    justify-content: space-around;
+}
+
+.side {
+    display: flex;
     align-items: center;
-    justify-content: center;
+}
+
+.go-back{
+    align-self: flex-start;
+    margin-top: 5%;
+    cursor: pointer;
+    color: #6b6b6b;
 }
 
 form {
+    height: 70%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    border-radius: 10px;
-    height: 90%;
-    width: 50%;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-    background-color: #fff;
+    justify-content: space-around;
 }
 
-h1{
-    font-family: 'Exo 2',sans-serif;
-    
-    margin-top: -2%;
+h2 {
+    font-family: 'Exo 2', serif;
+    line-height: 45px;
+}
+
+p {
+    font-size: 0.8rem;
 }
 
 .group{
-    display: inherit;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    
-    height: 80%;
-    width: 90%;
-}
-
-.formGroup {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    
-    width: 75%;
+    justify-content: space-around;
 }
 
-.formGroup input{
-    width: 94%;
-    
-    
+.form-group {
+    display: flex;
+    flex-direction: column;
+    height: 18%;
+    justify-content: space-around;
 }
 
-.formGroup label{
-    
-    font-size: 0.8rem;
+.cep-city{
+    display: flex;
+    justify-content: space-between;
 }
 
-
-a{
-    
-    color: #170a1c;
-    font-size: 0.8rem;
-    font-family: 'Noto sans', sans-serif;
+.cep-city .form-group{
+    height: 100%;
+    width: 45%;
 }
 
-
-
-.formGroup:has(input[type='date']) {
-   width: 75%;
+label {
+    font-size: 0.7rem;
+    font-weight: 600;
 }
 
+input {
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #656565;
+    padding: 0 10px;
+}
 
-.iconsRegistration{
+button {
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: #6b6d6b;
+    color: #fefefe;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+button:hover {
+    background-color: #04340a;
+}
+
+.buttons{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top: 5%;
+    align-items: center;
 }
 
-.iconsRegistration button{
-    width: 20%;
+.buttons .next{
+    background-color: #6b6d6b;
+    width: 40%;
+    font-size: 0.8rem;
+    position: relative;
+    background-size: 200% 100%; 
+    background-image: linear-gradient(to right, #6b6b6b 50%, #04340a 50%);
+    transition: background-position 0.4s ease-out; 
+}
+
+.buttons .previous{
+    background-color: #6b6d6b;
+    width: 40%;
+    font-size: 0.8rem;
+    position: relative;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to left, #04340a 50%, #6b6b6b 50%);
+    transition: background-position 0.4s ease-out; 
+}
+
+.previous:hover {
+    background-position: 100% 0; 
+}
+.next:hover {
+    background-position: -100% 0;
+}
+
+
+.sign {
+    align-self: center;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #032307;
+}
+
+.login-registration {
+    position: relative;
+    }
+
+.image {
+    position: absolute; 
+    top: 0; 
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+    transition: left 0.5s ease;
+}
+
+.no-pointer-events {
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 .group{
     display: none;
-    flex-direction: column;
 }
 
-.errorLabel{
-    color: #8e1616;
-    font-family: 'Noto sans', sans-serif;
+.error-label{
+    color: #741212;
     font-size: 0.8rem;
     display: none;
+    line-height: 5px;
+    align-self: center;
 }
 
-.firstGroup{
-    display: flex;
-}
-
-.exitIcon{
-    background-color: transparent;
-    color: #170a1c;
-    width: 10%;
-    height: 5%;
-    margin-top: 2%;
-    align-self: flex-end;
-}
-
-.exitIcon:hover{
-    background-color: transparent;
-    color: #313715;
-}
-
-.exitIcon i:hover{
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-}
