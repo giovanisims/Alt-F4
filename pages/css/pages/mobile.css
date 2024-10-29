@@ -5,112 +5,70 @@
 li:nth-child(2){
     border-bottom: 1px solid #E8EBED;
 }
-
 body{
     font-family: 'Noto sans', sans-serif;
-    background-color: #6D6D6D;
 }
 
-.pag{
-    width: 100%;
+main{
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 
-img{
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
+.filters{
+    width: 25%;
+    height: 100vh;
+    border: 2px solid green;
 }
 
-.img-s{
-    width: 30%;
-    aspect-ratio: 1 / 1;
+.container {
+    width: 75%;
+    margin: 20px auto;
 }
 
-.imgs-s .img-s{
-    width: 100%;
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
 }
 
-.img-m{
-    width: 40%;
-    aspect-ratio: 2 / 1.2;
-}
-
-.img-lg{
-    width: 65%;
-    aspect-ratio: 2 / 1.3;
-}
-
-.img-2lg{
-    width: 95%;
-    aspect-ratio: 2 / 1;
-}
-
-.imgs-s{
-    width: 20%;
+.products {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-around;
-    align-items: center;
-    gap: 20px
 }
 
-.img{
-    position: relative;
-    border-radius: 10px;
+.productCard {
+    background-color: #fff;
+    margin: 10px;
+    width: 25%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer; 
 }
 
-img:hover{
-    filter: brightness(0.5) blur(2px);
+.product-image{
+    width: 250px;
+    aspect-ratio: 3 / 2;
 }
 
-.text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    top: 5%;
-    left: 5%;
-    transform: translate(0, 0);
-    z-index: 1;
-    color: transparent;
+.productImage img {
+    max-width: 100%;
+}
+
+.productInfo {
+    padding: 15px;
+}
+
+.productInfo h3 {
+    font-family: 'Exo 2', sans-serif;
     font-size: 1rem;
+    color: #333;
 }
 
-p{
-    color: transparent;
-    transition: all 0.3s ease;
+.productInfo p {
+    font-size: 1rem;
+    color: #666;
 }
 
-.img i{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    top: 10%;
-    left: 80%;
-    transform: translate(0, 0);
-    transform: rotate(45deg);
-    z-index: 1;
-    color: transparent;
-    transition: all 0.3s ease;
-}
-
-.img:hover i{
-    color: #fff;
-    top: 8%;
-    left: 85%;
-}
-
-.img:hover p{
-    margin-top: -2%;
-    color: #E8EBED;
-    top: 8%;
-    left: 85%;
-}
-
-.img:hover .text{
-    color: #E8EBED;
+.productPrice {
+    font-size: 0.9rem;
+    color: #313715;
 }
