@@ -9,7 +9,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Lili2209*",
+    password: "puc@1234",
     database: "altf4",
     port: 3305
 })
@@ -17,6 +17,19 @@ var con = mysql.createConnection({
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected");
+})
+
+app.get('/users', (req, res) => {
+    const query = "SELECT cI.ClientID, cI.Name, cI.Login, cI.Email, cI.CPF, cI.Birthdate, a.CEP FROM clientinfo as cI JOIN address as a ON cI.ClientID = a.ClientID;";
+
+    con.query(query, (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar produtos', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            res.json(results);
+        }
+    })
 })
 
 app.get('/products', (req, res) => {

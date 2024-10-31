@@ -104,3 +104,40 @@ const loadProductsMobile = () => {
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
 
+
+
+const getUsers = () => {
+    fetch('/users')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const usersTable = document.getElementById('table-body');
+            usersTable.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                data.forEach(user => {
+                    const item = document.createElement('tr');
+                    item.innerHTML = `                         
+                <td>${user.ClientID}</td>
+                <td>${user.Name}</td>
+                <td>${user.Login}</td>
+                <td>${user.Email}</td>
+                <td>${user.CPF}</td>
+                <td>${user.Birthdate}</td>
+                <td>${user.CEP}</td>
+                <td>
+                    <button class="edit-button" onclick="location.href='login_registration.html'">Editar</button>
+                    <button class="delete-button" onclick="alert('Deseja fazer isso mesmo?')">Excluir</button>
+                </td>
+            
+                        `;
+                    usersTable.appendChild(item);
+                });
+            } else {
+                console.error('Os dados retornados não são um array:', data);
+            }
+        })
+        .catch(error => console.error('Erro ao carregar os produtos', error));
+}
+
+
