@@ -1,6 +1,8 @@
 let express = require('express');
 let app = express();
+const bcrypt = require('bcrypt');
 
+app.use(express.json())
 app.use(express.static('./pages'))
 
 const port = 3000;
@@ -70,6 +72,112 @@ app.get('/productsMobile', (req, res) => {
         }
     })
 })
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    const query = "SELECT * FROM clientInfo WHERE email = ?";
+    con.query(query, [email], async (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: 'Erro no servidor' });
+
+        if (results.length === 0) {
+            return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
+        }
+
+        const user = results[0];
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            res.json({ success: true, message: 'Login bem-sucedido' });
+        } else {
+            res.status(401).json({ success: false, message: 'Senha incorreta' });
+        }
+    });
+})
+
+app.post('/register', async (req, res) => {
+    const { cpf, emailR, name, phone, birthdate, cep, city, state, address, houseNum, complement, username, passwordR } = req.body;
+
+    try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(passwordR, saltRounds);
+
+        // Iniciar a transação
+        con.beginTransaction((err) => {
+            if (err) return res.status(500).json({ success: false, message: 'Erro ao iniciar a transação' });
+
+            // Obter o próximo `clientID` manualmente
+            con.query('SELECT MAX(clientID) AS maxClientId FROM clientinfo', (err, result) => {
+                if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último clientID' });
+                const newClientID = (result[0].maxClientId || 0) + 1;
+
+                // Inserir na tabela `clientinfo`
+                const clientInfoQuery = "INSERT INTO clientinfo (clientID, keyword, birthdate, login, email, cpf, name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                const clientInfoValues = [newClientID, hashedPassword, birthdate, username, emailR, cpf, name];
+
+                con.query(clientInfoQuery, clientInfoValues, (err, result) => {
+                    if (err) {
+                        return con.rollback(() => {
+                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela clientinfo' });
+                        });
+                    }
+
+                    // Obter o próximo `addressID` manualmente
+                    con.query('SELECT MAX(addressID) AS maxAddressId FROM address', (err, result) => {
+                        if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último addressID' });
+                        const newAddressID = (result[0].maxAddressId || 0) + 1;
+
+                        // Inserir na tabela `address`
+                        const addressQuery = "INSERT INTO address (addressID, clientID, cep, complement, address, houseNum, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        const addressValues = [newAddressID, newClientID, cep, complement, address, houseNum, city, state];
+
+                        con.query(addressQuery, addressValues, (err, result) => {
+                            if (err) {
+                                return con.rollback(() => {
+                                    res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela address' });
+                                });
+                            }
+
+                            // Obter o próximo `numberID` manualmente
+                            con.query('SELECT MAX(numberID) AS maxNumberId FROM phonenumber', (err, result) => {
+                                if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último numberID' });
+                                const newNumberID = (result[0].maxNumberId || 0) + 1;
+
+                                // Inserir na tabela `phonenumber`
+                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, fk_clientinfo_clientid) VALUES (?, ?, ?)";
+                                const phoneValues = [newNumberID, phone, newClientID];
+
+                                con.query(phoneQuery, phoneValues, (err, result) => {
+                                    if (err) {
+                                        return con.rollback(() => {
+                                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela phonenumber' });
+                                        });
+                                    }
+
+                                    // Commit se todas as inserções forem bem-sucedidas
+                                    con.commit((err) => {
+                                        if (err) {
+                                            return con.rollback(() => {
+                                                res.status(500).json({ success: false, message: 'Erro ao fazer commit da transação' });
+                                            });
+                                        }
+                                        res.json({ success: true, message: 'Cadastro realizado com sucesso!' });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Erro no servidor' });
+    }
+});
+
+
+
 
 app.get('', (req, res) => {
     res.send('index');

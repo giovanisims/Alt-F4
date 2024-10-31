@@ -9,7 +9,7 @@ document.getElementById('signUp').addEventListener('click', function () {
 document.getElementById('signIn').addEventListener('click', function () {
     document.querySelector('.image').style.left = '50%';
 
-     document.getElementById('signUp').classList.remove('no-pointer-events');
+    document.getElementById('signUp').classList.remove('no-pointer-events');
     document.getElementById('signIn').classList.add('no-pointer-events');
 });
 
@@ -71,10 +71,10 @@ document.addEventListener("DOMContentLoaded", function () {
     nextButtons.forEach(button => {
         button.addEventListener("click", function (event) {
             event.preventDefault();
-            registration(event); 
+            registration(event);
         });
     });
-    
+
 
     backButtons.forEach(button => {
         button.addEventListener("click", function (event) {
@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
         registration(event);
     });
 
-    function registration(event) {
+    async function registration(event) {
         event.preventDefault();
-        
+
         const cpf = document.getElementById("cpf")?.value || '';
         const emailR = document.getElementById("emailR")?.value || '';
         const name = document.getElementById("name")?.value || '';
@@ -105,62 +105,63 @@ document.addEventListener("DOMContentLoaded", function () {
         const username = document.getElementById("username")?.value || '';
         const passwordR = document.getElementById("passwordR")?.value || '';
         const confirmPassword = document.getElementById("confirmPassword")?.value || '';
-    
+
+
         let valid = true;
-    
+
         function showError(selector) {
             document.querySelector(selector).style.display = "block";
             valid = false;
         }
-    
+
         function hideError(selector) {
             document.querySelector(selector).style.display = "none";
         }
-    
-        if (currentGroup === 0) { 
+
+        if (currentGroup === 0) {
             if (!cpf || !emailR) {
                 showError("#requiredFG");
             } else {
                 hideError("#requiredFG");
             }
-            if(!emailR.includes("@")){
+            if (!emailR.includes("@")) {
                 showError("#requiredEmail");
             }
-            else{
+            else {
                 hideError("#requiredEmail");
             }
         }
-    
-        if (currentGroup === 1) { 
+
+        if (currentGroup === 1) {
             if (!name || !phone || !birthdate) {
                 showError("#requiredSG");
             } else {
                 hideError("#requiredSG");
             }
         }
-    
-        if (currentGroup === 2) { 
+
+        if (currentGroup === 2) {
             if (!cep || !city || !state || !address || !houseNum || !complement) {
                 showError("#requiredTG");
             } else {
                 hideError("#requiredTG");
             }
         }
-    
+
         if (currentGroup === 3) {
             if (!username | !passwordR || !confirmPassword) {
                 showError("#requiredFOG");
             } else {
                 hideError("#requiredFOG");
             }
-    
+
             if (passwordR.length < 8 || passwordR.length > 16) {
                 showError("#passwordLenght");
             } else {
                 hideError("#passwordLenght");
 
             }
-    
+
             const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])/;
             if (!passwordRegex.test(passwordR)) {
                 showError("#passwordRegex");
@@ -168,44 +169,77 @@ document.addEventListener("DOMContentLoaded", function () {
                 hideError("#passwordRegex");
 
             }
-    
+
             if (passwordR !== confirmPassword) {
                 showError("#passwordConfirmation");
             } else {
                 hideError("#passwordConfirmation");
             }
         }
-    
-    
+
+
+
+
         if (valid) {
             if (currentGroup === groups.length - 1) {
-                document.querySelector("form").submit();
-                alert("Cadastro finalizado com sucesso!")
-                window.location.href = "login_registration.html"; 
+                try {
+                    console.log("oii")
+                    const response = await fetch('/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ cpf, emailR, name, phone, birthdate, cep, city, state, address, houseNum, complement, username, passwordR })
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Cadastro realizado com sucesso!');
+                        window.location.href = "login_registration.html";
+                    } else {
+                        alert('Erro no cadastro: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Erro na requisição:', error);
+                }
             } else {
-                goToNextGroup(); 
+                goToNextGroup();
             }
         }
     }
-    
-    
+
+
     document.querySelector("form").addEventListener("submit", function (event) {
         registration(event);
     });
 });
 
-document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("loginForm").addEventListener("submit", function(event){
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
         const email = document.getElementById("email")?.value || '';
         const password = document.getElementById("password")?.value || '';
 
-        if(!email || !password){
+        if (!email || !password) {
             document.getElementById("required").style.display = "block";
             event.preventDefault();
         }
         else {
             document.getElementById("required").style.display = "none"
-            document.getElementById("loginForm").submit();
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Login bem-sucedido!');
+                    window.location.href = "profile.html";
+                } else {
+                    alert('Falha no login: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erro na requisição:', error);
+            }
         }
     })
-} )
+})
