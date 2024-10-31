@@ -76,24 +76,37 @@ app.get('/productsMobile', (req, res) => {
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    const query = "SELECT * FROM clientInfo WHERE email = ?";
+    const query = "SELECT email, keyword FROM clientinfo WHERE email = ?";
     con.query(query, [email], async (err, results) => {
-        if (err) return res.status(500).json({ success: false, message: 'Erro no servidor' });
+        if (err) {
+            console.error('Erro na consulta:', err);
+            return res.status(500).json({ success: false, message: 'Erro no servidor' });
+        }
 
         if (results.length === 0) {
             return res.status(401).json({ success: false, message: 'Usuário não encontrado' });
         }
 
         const user = results[0];
-        const passwordMatch = await bcrypt.compare(password, user.password);
 
-        if (passwordMatch) {
-            res.json({ success: true, message: 'Login bem-sucedido' });
-        } else {
-            res.status(401).json({ success: false, message: 'Senha incorreta' });
+        if (!user.keyword) {
+            return res.status(500).json({ success: false, message: 'Senha não encontrada no servidor' });
+        }
+
+        try {
+            const passwordMatch = await bcrypt.compare(password, user.keyword);
+            if (passwordMatch) {
+                res.json({ success: true, message: 'Login bem-sucedido' });
+            } else {
+                res.status(401).json({ success: false, message: 'Senha incorreta' });
+            }
+        } catch (compareError) {
+            console.error('Erro ao comparar a senha:', compareError);
+            res.status(500).json({ success: false, message: 'Erro ao verificar senha' });
         }
     });
-})
+});
+
 
 app.post('/register', async (req, res) => {
     const { cpf, emailR, name, phone, birthdate, cep, city, state, address, houseNum, complement, username, passwordR } = req.body;

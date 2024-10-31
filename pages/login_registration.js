@@ -216,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginForm").addEventListener("submit", async (event) => {
         const email = document.getElementById("email")?.value || '';
         const password = document.getElementById("password")?.value || '';
+        console.log(password, email)
 
         if (!email || !password) {
             document.getElementById("required").style.display = "block";
@@ -223,12 +224,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else {
             document.getElementById("required").style.display = "none"
+         
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
+                console.log(response)
 
                 const result = await response.json();
                 if (result.success) {
