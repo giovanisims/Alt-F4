@@ -59,7 +59,7 @@ const loadProductsPC = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="https://via.placeholder.com/250x150" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})' class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -95,7 +95,7 @@ const loadProductsMobile = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="https://via.placeholder.com/250x150" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})'  class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -131,7 +131,7 @@ const loadProductsConsole = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="https://via.placeholder.com/250x150" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})' class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -147,41 +147,3 @@ const loadProductsConsole = () => {
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
-
-
-
-const getUsers = () => {
-    fetch('/users')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            const usersTable = document.getElementById('table-body');
-            usersTable.innerHTML = '';
-
-            if (Array.isArray(data)) {
-                data.forEach(user => {
-                    const item = document.createElement('tr');
-                    item.innerHTML = `                         
-                <td>${user.ClientID}</td>
-                <td>${user.Name}</td>
-                <td>${user.Login}</td>
-                <td>${user.Email}</td>
-                <td>${user.CPF}</td>
-                <td>${user.Birthdate}</td>
-                <td>${user.CEP}</td>
-                <td>
-                    <button class="edit-button" onclick="location.href='login_registration.html'">Editar</button>
-                    <button class="delete-button" onclick="alert('Deseja fazer isso mesmo?')">Excluir</button>
-                </td>
-            
-                        `;
-                    usersTable.appendChild(item);
-                });
-            } else {
-                console.error('Os dados retornados não são um array:', data);
-            }
-        })
-        .catch(error => console.error('Erro ao carregar os produtos', error));
-}
-
-

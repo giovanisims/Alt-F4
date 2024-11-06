@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/pages/crud.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search...">
+        <button class="search-button">Buscar</button>
+    </div>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Avaliação</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            
+        </tbody>
+    </table>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="crud.js"></script>
+<script>document.addEventListener("DOMContentLoaded", getProducts)</script>
