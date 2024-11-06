@@ -22,7 +22,7 @@ con.connect(function (err) {
 })
 
 app.get('/users', (req, res) => {
-    const query = "SELECT cI.ClientID, cI.Name, cI.Login, cI.Email, cI.CPF, cI.Birthdate, a.CEP FROM clientinfo as cI JOIN address as a ON cI.ClientID = a.ClientID;";
+    const query = "SELECT cI.ClientID, cI.Name, cI.Login, cI.Email, cI.CPF,  DATE_FORMAT(cI.Birthdate, '%d/%m/%y') AS Birthdate , a.CEP FROM clientinfo as cI JOIN address as a ON cI.ClientID = a.ClientID;";
 
     con.query(query, (err, results) => {
         if (err) {
@@ -47,8 +47,26 @@ app.get('/products', (req, res) => {
     })
 })
 
+app.get('/product', (req, res) => {
+    const { id } = req.query;
+    const query = "SELECT p.ProductID, p.Name , p.Rating, p.Price , p.Stock, p.URL, p.device FROM product AS p   WHERE ProductID =?";
+
+    con.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar produto', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            if (results.length > 0) {
+                res.json(results[0]);
+            } else {
+                res.status(404).send("Produto não encontrado");
+            }
+        }
+    });
+})
+
 app.get('/productsPC', (req, res) => {
-    const query = "SELECT p.Name, p.Rating, p.Price, p.Stock FROM product as p JOIN device as d ON p.ProductID = d.ProductID WHERE d.Type = 'PC'; ";
+    const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock FROM product as p WHERE p.device = 'Desktop';";
 
     con.query(query, (err, results) => {
         if (err) {
@@ -61,7 +79,19 @@ app.get('/productsPC', (req, res) => {
 })
 
 app.get('/productsMobile', (req, res) => {
-    const query = "SELECT p.Name, p.Rating, p.Price, p.Stock FROM product as p JOIN device as d ON p.ProductID = d.ProductID WHERE d.Type = 'Mobile'; ";
+    const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock FROM product as p WHERE p.device = 'Mobile'; ";
+
+    con.query(query, (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar produtos', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            res.json(results);
+        }
+    })
+})
+app.get('/productsConsole', (req, res) => {
+    const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock FROM product as p WHERE p.device = 'Console'; ";
 
     con.query(query, (err, results) => {
         if (err) {
