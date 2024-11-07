@@ -34,6 +34,48 @@ app.get('/users', (req, res) => {
     })
 })
 
+app.get('/user', (req, res) => {
+    const { id } = req.query;
+    const query = `
+        SELECT 
+            cI.ClientID, 
+            cI.Name, 
+            cI.Username, 
+            cI.Email, 
+            cI.CPF,
+            GROUP_CONCAT(DISTINCT pN.number SEPARATOR ', ') AS PhoneNumbers,
+            DATE_FORMAT(cI.Birthdate, '%d/%m/%Y') AS Birthdate,
+            GROUP_CONCAT(DISTINCT a.CEP SEPARATOR ', ') AS CEPs,
+            GROUP_CONCAT(DISTINCT a.Address SEPARATOR ', ') AS Addresses,
+            GROUP_CONCAT(DISTINCT a.HouseNum SEPARATOR ', ') AS HouseNumbers,
+            GROUP_CONCAT(DISTINCT a.Complement SEPARATOR ', ') AS Complements
+        FROM 
+            client AS cI
+        JOIN 
+            address AS a ON cI.ClientID = a.ClientID
+        JOIN 
+            phoneNumber AS pN ON cI.ClientID = pN.clientID
+        WHERE 
+            cI.ClientID = ?
+        GROUP BY 
+            cI.ClientID
+        LIMIT 0, 1000;
+    `;
+
+    con.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuário', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            if (results.length > 0) {
+                res.json(results[0]);
+            } else {
+                res.status(404).send("Usuário não encontrado");
+            }
+        }
+    });
+});
+
 app.get('/products', (req, res) => {
     const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price , p.Stock, p.Type FROM product as p";
 
@@ -106,7 +148,7 @@ app.get('/productsConsole', (req, res) => {
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
-    const query = "SELECT email, password FROM clientinfo WHERE email = ?";
+    const query = "SELECT  ClientID, email, password FROM client WHERE email = ?";
     con.query(query, [email], async (err, results) => {
         if (err) {
             console.error('Erro na consulta:', err);
@@ -126,7 +168,7 @@ app.post('/login', (req, res) => {
         try {
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (passwordMatch) {
-                res.json({ success: true, message: 'Login bem-sucedido' });
+                res.json({ success: true, message: 'Login bem-sucedido', clientid: user.ClientID });
             } else {
                 res.status(401).json({ success: false, message: 'Senha incorreta' });
             }
@@ -150,18 +192,18 @@ app.post('/register', async (req, res) => {
             if (err) return res.status(500).json({ success: false, message: 'Erro ao iniciar a transação' });
 
             // Obter o próximo `clientID` manualmente
-            con.query('SELECT MAX(clientID) AS maxClientId FROM clientinfo', (err, result) => {
+            con.query('SELECT MAX(clientID) AS maxClientId FROM client', (err, result) => {
                 if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último clientID' });
                 const newClientID = (result[0].maxClientId || 0) + 1;
 
-                // Inserir na tabela `clientinfo`
-                const clientInfoQuery = "INSERT INTO clientinfo (clientID, password, birthdate, login, email, cpf, name) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                const clientInfoValues = [newClientID, hashedPassword, birthdate, username, emailR, cpf, name];
+                // Inserir na tabela `client`
+                const clientQuery = "INSERT INTO client (clientID, password, birthdate, username, email, cpf, name) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                const clientValues = [newClientID, hashedPassword, birthdate, username, emailR, cpf, name];
 
-                con.query(clientInfoQuery, clientInfoValues, (err, result) => {
+                con.query(clientQuery, clientValues, (err, result) => {
                     if (err) {
                         return con.rollback(() => {
-                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela clientinfo' });
+                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela client' });
                         });
                     }
 
@@ -187,7 +229,7 @@ app.post('/register', async (req, res) => {
                                 const newNumberID = (result[0].maxNumberId || 0) + 1;
 
                                 // Inserir na tabela `phonenumber`
-                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, fk_clientinfo_clientid) VALUES (?, ?, ?)";
+                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, clientid) VALUES (?, ?, ?)";
                                 const phoneValues = [newNumberID, phone, newClientID];
 
                                 con.query(phoneQuery, phoneValues, (err, result) => {
@@ -222,7 +264,7 @@ app.post('/register', async (req, res) => {
 app.delete('/users/:id', (req, res) => {
     const {id} = req.params;
 
-    const query = "DELETE FROM clientinfo WHERE clientid =?";
+    const query = "DELETE FROM client WHERE clientid =?";
 
     con.query(query, [id], (err, result) => {
         if(err){
@@ -237,6 +279,70 @@ app.delete('/users/:id', (req, res) => {
         }
     })
 })
+
+app.delete('/products/:id', (req, res) => {
+    const {id} = req.params;
+
+    const query = "DELETE FROM product WHERE productid =?";
+
+    con.query(query, [id], (err, result) => {
+        if(err){
+            console.error('Erro ao deletar produto');
+            res.status(500).json({success: false, message:"Erro no servidor"});
+        } else {
+            if(result.affectedRows > 0){
+                res.json({success: true, message:"Produto deletado com sucesso"});
+            } else{
+                res.status(404).json({success: false, message:"Produto não encontrado"})
+            }
+        }
+    })
+})
+
+//... seu código existente
+
+// Endpoint para busca de produtos
+app.get('/searchProducts', (req, res) => {
+    const { query } = req.query; // Recebe o parâmetro de pesquisa na URL
+    const sqlQuery = `
+        SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock, p.Type, p.URL 
+        FROM product AS p 
+        WHERE p.Name LIKE ? OR p.Type LIKE ?;`;
+
+    // Usa o operador LIKE para busca parcial
+    con.query(sqlQuery, [`%${query}%`, `%${query}%`], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar produtos:', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+// Endpoint para busca de clientes
+app.get('/searchUsers', (req, res) => {
+    const { query } = req.query; // Recebe o parâmetro de pesquisa na URL
+    const sqlQuery = `
+        SELECT cI.ClientID, cI.Name, cI.Username, cI.Email, cI.CPF,
+               DATE_FORMAT(cI.Birthdate, '%d/%m/%Y') AS Birthdate,
+               GROUP_CONCAT(a.CEP SEPARATOR ', ') AS CEPs
+        FROM client AS cI
+        LEFT JOIN address AS a ON cI.ClientID = a.ClientID
+        WHERE cI.Name LIKE ? OR cI.Username LIKE ? OR cI.Email LIKE ?
+        GROUP BY cI.ClientID;`;
+
+    con.query(sqlQuery, [`%${query}%`, `%${query}%`, `%${query}%`], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuários:', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+
 
 
 app.get('', (req, res) => {

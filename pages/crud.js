@@ -23,7 +23,7 @@ const getUsers = () => {
                 <td>${user.CEPs}</td>
                 <td>
                     <button class="edit-button" onclick="location.href='login_registration.html'">Editar</button>
-                    <button class="delete-button">Excluir</button>
+                    <button class="delete-button-user delete-button">Excluir</button>
                 </td>
             
                         `;
@@ -37,7 +37,7 @@ const getUsers = () => {
 }
 
 document.addEventListener('click', (event) => {
-    if (event.target.classList.contains('delete-button')) {
+    if (event.target.classList.contains('delete-button-user')) {
         const userId = event.target.closest('tr').querySelector('td').innerText;
         
         if (confirm('Você tem certeza que deseja deletar este usuário?')) {
@@ -78,7 +78,7 @@ const getProducts = () => {
                 <td>${product.Type}</td>
                 <td>
                     <button class="edit-button" onclick="location.href='login_registration.html'">Editar</button>
-                    <button class="delete-button">Excluir</button>
+                    <button class="delete-button-product delete-button">Excluir</button>
                 </td>
             
                         `;
@@ -90,4 +90,27 @@ const getProducts = () => {
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
+
+
+document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-button-product')) {
+        const productId = event.target.closest('tr').querySelector('td').innerText;
+        
+        if (confirm('Você tem certeza que deseja deletar este produto?')) {
+            fetch(`/products/${productId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Produto deletado com sucesso');
+                    getProducts(); 
+                } else {
+                    console.error('Erro ao deletar o produto');
+                }
+            })
+            .catch(error => console.error('Erro ao deletar o produto', error));
+        }
+    }
+});
+
 

@@ -15,6 +15,11 @@
     padding: 20px;
 }
 
+.img img{
+    width: 50%;
+    aspect-ratio: 3 / 2.5;
+}
+
 .text{
     width: 35%;
     padding: 20px;

@@ -23,7 +23,8 @@ h1 {
     border: 2px solid #170a1c;
 }
 
-.search-button {
+.search-button , .add-button{
+    margin-right: 5px;
     padding: 10px 20px;
     font-size: 0.9rem;
     border-radius: 25px;
@@ -33,7 +34,7 @@ h1 {
     cursor: pointer;
 }
 
-.search-button:hover {
+.search-button:hover, .add-button:hover {
     background-color: #313715;
 }
 

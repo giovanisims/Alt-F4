@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         else {
             document.getElementById("required").style.display = "none"
-         
+
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
@@ -236,7 +236,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const result = await response.json();
                 if (result.success) {
                     alert('Login bem-sucedido!');
-                    window.location.href = "profile.html";
+                    const clientid = result.clientid; 
+                    location.href = `profile.html?id=${clientid}`;
                 } else {
                     alert('Falha no login: ' + result.message);
                 }
