@@ -23,7 +23,7 @@ h1 {
     border: 2px solid #170a1c;
 }
 
-.search-button , .add-button{
+.search-button , .add-button, .submit{
     margin-right: 5px;
     padding: 10px 20px;
     font-size: 0.9rem;
@@ -34,7 +34,7 @@ h1 {
     cursor: pointer;
 }
 
-.search-button:hover, .add-button:hover {
+.search-button:hover, .add-button:hover, .submit:hover {
     background-color: #313715;
 }
 
@@ -84,3 +84,50 @@ table{
 .delete-button:hover {
     background-color: #da190b;
 }
+
+.center-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+ 
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group label{
+    font-family: 'Noto sans';
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.form-group input{
+    height: 25px;
+    padding: 0 20px;
+    border: 2px solid #393939;
+    border-radius: 20px;
+}
+
+select{
+    height: 25px;
+    padding: 0 20px;
+    border: 2px solid #393939;
+    border-radius: 20px;
+}
+
+.submit{
+    margin-bottom: 30px;
+}
+
+

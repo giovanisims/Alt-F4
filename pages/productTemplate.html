@@ -6,51 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
-    <link rel="stylesheet" href="css/pages/productTemplate.css">
+    <link rel="stylesheet" href="/css/pages/productTemplate.css">
     <title>Produto</title>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const myParam = urlParams.get('id');
-
-        const loadProduct = () => {
-            fetch(`/product?id=${myParam}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na requisição');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    const productContainer = document.getElementById('product');
-                    productContainer.innerHTML = '';
-                    var rating = '';
-                    for (let i = 0; i < data.Rating; i++) {
-                        rating += '⭐';
-                    }
-                    const item = document.createElement('div');
-                    item.className = 'img';
-                    item.innerHTML = `<img src="${data.URL ? data.URL : 'https://via.placeholder.com/300'}" alt="imagem do produto">`;
-                    const item2 = document.createElement('div');
-                    item2.className = 'text';
-                    item2.innerHTML = `${data.Name}</div>
-                            <div class="rating">${rating}</div>
-                            <div class="price">R$${data.Price}</div>
-                            <button type="button" class="buyButton">Adicionar ao Carrinho</button>
-                            <div class="description">Product description goes here. This is a placeholder text.</div>
-                            <div class="shipping">
-                                <label for="shipping">Calcular o frete</label>
-                                <input type="text" name="shipping" id="shipping" placeholder="00000-000">
-                            </div>`
-                    productContainer.appendChild(item);
-                    productContainer.appendChild(item2);
-                })
-                .catch(error => console.error('Erro ao carregar os produtos', error));
-        }
-        document.addEventListener('DOMContentLoaded', loadProduct);
-
-    </script>
 
 </head>
 
@@ -58,7 +15,7 @@
     <div class="contentContainer">
         <header>
             <div class="logo">
-                <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
+                <img src="../images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
             </div>
             <nav id="navBar">
                 <ul class="menuBar">
@@ -66,8 +23,8 @@
                     <li><a href="mobile.html">Mobile</a></li>
                     <li><a href="console.html">Console</a></li>
                     <li><a href="pc.html">PC</a></li>
-                    <li><a href="suporte.html">Suporte</a></li>
-                    <li><a href="sobreNos.html">Sobre nós</a></li>
+                    <li><a href="suport.html">Suporte</a></li>
+                    <li><a href="aboutUs.html">Sobre nós</a></li>
                 </ul>
             </nav>
             <div class="icons">
@@ -131,6 +88,7 @@
                 cart.style.display = 'none';
             });
         </script>
+        <script src="productTemplate.js"></script>
 </body>
 
 </html>
