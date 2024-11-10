@@ -52,6 +52,18 @@ a {
     color: #000;
 }
 
+.cartEmpty{
+    font-size: 1.2rem;
+    margin-left: 55px;
+}
+
+#products{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .product{
     width: 95%;
     height: 35vh;
@@ -59,13 +71,14 @@ a {
     justify-content: space-evenly;
     align-items: center;
     margin-left: 2%;
-    margin-top: -8%;
     border-radius: 5px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 img{
     margin-left: 2%;
+    width: 100px;
+    aspect-ratio: 2 / 1.5;
 }
 
 .productInfo{

@@ -39,40 +39,42 @@
     </div>
     <div class="content">
         <main>
-            <div class="product">
-                <img src="https://placehold.co/100" alt="foto do produto">
-                <div class="productInfo">
-                    <div class="productName">
-                        <h4>Marca</h4>
-                        <p>Nome do produto</p>
-                        <p>id:00000000</p>
+            <div id="products">
+                <div class="product">
+                    <img src="https://placehold.co/100" alt="foto do produto">
+                    <div class="productInfo">
+                        <div class="productName">
+                            <h4>Marca</h4>
+                            <p>Nome do produto</p>
+                            <p>id:00000000</p>
+                        </div>
+                        <div class="productPrice">
+                            <h4>R$000,0</h4>
+                            <p>Até x12 sem júros</p>
+                        </div>
+                        <div class="productSize">
+                            <h4>Tamanho</h4>
+                            <p>Único</p>
+                            <label>Quantidade</label><br>
+                            <input type="number" min="0" value="1">
+                        </div>
                     </div>
-                    <div class="productPrice">
-                        <h4>R$000,0</h4>
-                        <p>Até x12 sem júros</p>
-                    </div>
-                    <div class="productSize">
-                        <h4>Tamanho</h4>
-                        <p>Único</p>
-                        <label>Quantidade</label><br>
-                        <input type="number" min="0" value="1">
-                    </div>
+                    <i class="fa-solid fa-xmark selfAlign removeProduct"></i>
                 </div>
-                <i class="fa-solid fa-xmark selfAlign"></i>
             </div>
         </main>
         <aside>
-            <div class="summary">
+            <div class="summary" id="summary">
                 <h3>Resumo</h3>
-                <div class="summaryInfo">
+                <div class="summaryInfo subtotal">
                     <h5>Subtotal</h5>
                     <p>R$000,00</p>
                 </div>
-                <div class="summaryInfo">
+                <div class="summaryInfo frete">
                     <h5>Frete</h5>
                     <p>R$00,0</p>
                 </div>
-                <div class="summaryInfo">
+                <div class="summaryInfo total">
                     <h4>Total</h4>
                     <p>R$000,0</p>
                 </div>
@@ -95,6 +97,7 @@
 
         });
     </script>
+    <script src="cart.js"></script>
 </body>
 
 </html>

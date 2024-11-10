@@ -79,26 +79,6 @@
                     nav.style.display = "none";
                 }
             });
-
-            const buyButtons = document.getElementsByClassName('buyButton');
-            for (let i = 0; i < buyButtons.length; i++) {
-                buyButtons[i].addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const cart = document.getElementById('cart');
-                    const contentContainer = document.querySelector('.contentContainer');
-                    document.body.classList.add('dimBackground');
-                    contentContainer.classList.add('dimmed');
-                    cart.style.display = "block";
-                });
-            }
-
-            document.getElementById('close').addEventListener('click', function () {
-                const cart = document.getElementById('cart');
-                const contentContainer = document.querySelector('.contentContainer');
-                document.body.classList.remove('dimBackground');
-                contentContainer.classList.remove('dimmed');
-                cart.style.display = 'none';
-            });
         </script>
         <script src="getProducts.js"></script>
         <script>document.addEventListener("DOMContentLoaded", loadProductsPC)</script>

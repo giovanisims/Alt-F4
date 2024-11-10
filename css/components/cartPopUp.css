@@ -1,23 +1,23 @@
 @import url('../components/button.css');
 
-
-.cartPopUp{
+.cartPopUp {
     height: 35vh;
     width: 30%;
     margin-left: 70%;
     box-shadow: -10px 5px 10px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     position: relative;
+    z-index: 1001; /* Certifique-se de que o pop-up esteja acima do fundo escurecido */
 }
 
-.title{
+.title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 90%;
 }
 
-.infoCart{
+.infoCart {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -36,35 +36,31 @@
     margin-top: 2%;
 }
 
-.title p{
+.title p {
     font-family: 'Exo 2';
     font-size: 0.95rem;
     margin-left: -40%;
 }
 
-.middle{
+.middle {
     width: 90%;
     display: flex;
     gap: 10%;
 }
 
-.middle p{
+.middle p {
     font-family: 'Noto sans', sans-serif;
     font-size: 0.8rem;
     line-height: 80%;
 }
 
-button{
+.middle img{
+    width: 70px;
+    aspect-ratio: 3 / 2.5;
+}
+
+button {
     margin-top: 5%;
-}
-
-#cart{
-    display: none;
-}
-
-.dimmed {
-    filter: brightness(0.4);
-    pointer-events: none; 
 }
 
 #cart {
@@ -73,15 +69,3 @@ button{
     top: 11%;
     z-index: 1001;
 }
-
-body.dimBackground::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); 
-    z-index: 1000;
-}
-

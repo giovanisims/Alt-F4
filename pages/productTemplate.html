@@ -36,24 +36,7 @@
         <main>
             <div class="container" id="product"></div>
         </main>
-        <div class="cartPopUp" id="cart">
-            <div class="infoCart">
-                <div class="title">
-                    <i class="fa-regular fa-circle-check"></i>
-                    <p>Adicionado ao carrinho</p>
-                    <i class="fa-solid fa-xmark" id="close"></i>
-                </div>
-                <div class="middle">
-                    <img src="https://placehold.co/70">
-                    <div class="infoProduct">
-                        <p>Nome Produto</p>
-                        <p>Tamanho</p>
-                        <p>R$000,0</p>
-                    </div>
-                </div>
-                <button onclick="location.href='cart.html'">Ver carrinho</button>
-            </div>
-        </div>
+        <div class="cartPopUp" id="cart"></div>
         <script>
             document.getElementById('menuButton').addEventListener('click', function () {
                 const nav = document.getElementById("navBar");
@@ -68,23 +51,8 @@
                 }
             });
 
-            const buyButtons = document.getElementsByClassName('buyButton');
-            for (let i = 0; i < buyButtons.length; i++) {
-                buyButtons[i].addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const cart = document.getElementById('cart');
-                    const contentContainer = document.querySelector('.contentContainer');
-                    document.body.classList.add('dimBackground');
-                    contentContainer.classList.add('dimmed');
-                    cart.style.display = "block";
-                });
-            }
-
             document.getElementById('close').addEventListener('click', function () {
                 const cart = document.getElementById('cart');
-                const contentContainer = document.querySelector('.contentContainer');
-                document.body.classList.remove('dimBackground');
-                contentContainer.classList.remove('dimmed');
                 cart.style.display = 'none';
             });
         </script>
