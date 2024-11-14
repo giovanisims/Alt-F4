@@ -22,6 +22,7 @@ const getUsers = () => {
                 <td>${user.CPF}</td>
                 <td>${user.Birthdate}</td>
                 <td>${user.CEP}</td>
+                <td>${user.PhoneNumber}</td>
                 <td>
                     <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
                     <button class="delete-button-user delete-button">Excluir</button>
@@ -66,6 +67,7 @@ const searchUsers = (termo) => {
                 <td>${user.CPF}</td>
                 <td>${user.Birthdate}</td>
                 <td>${user.CEP}</td>
+                <td>${user.PhoneNumber}</td>
                 <td>
                     <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
                     <button class="delete-button-user delete-button">Excluir</button>
@@ -84,6 +86,7 @@ const searchUsers = (termo) => {
                 <td>${data.CPF}</td>
                 <td>${data.Birthdate}</td>
                 <td>${data.CEP}</td>
+                <td>${data.PhoneNumber}</td>
                 <td>
                     <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
                     <button class="delete-button-user delete-button">Excluir</button>

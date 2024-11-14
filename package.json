@@ -2,7 +2,8 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.4"
   },
   "devDependencies": {
     "nodemo": "^1.0.0",

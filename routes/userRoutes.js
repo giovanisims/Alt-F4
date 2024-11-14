@@ -7,7 +7,7 @@ const { route } = require('./productRoutes');
 // Rota para obter informações do usuário
 
 router.get('/users', (req, res) => {
-    const query = "SELECT ClientID, Name, Username, Email, CPF, DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate, CEP  FROM client AS cI; ";
+    const query = "SELECT ClientID, Name, Username, Email, CPF, DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate, CEP, PhoneNumber  FROM client AS cI; ";
 
     con.query(query, (err, results) => {
         if (err) {
@@ -28,15 +28,9 @@ router.get('/users/search', (req, res) => {
             Username, 
             Email, 
             CPF,
-            DATE_FORMAT(Birthdate, '%Y-%m-%d') AS BirthdateInput,
-            Complement,
-            City,
-            State,
-            PhoneNumber,
             DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate,
             CEP,
-            Address,
-            HouseNum
+            PhoneNumber
         FROM 
             client
         WHERE Name LIKE ?`;
