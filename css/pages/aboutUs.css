@@ -30,3 +30,11 @@ li:nth-child(1){
 .cursor-none{
     cursor: default;
 }
+
+.photo-tab img{
+    object-fit: cover;
+}
+
+#lucas{
+    object-position: center right;
+}

@@ -7,7 +7,7 @@ const { route } = require('./productRoutes');
 // Rota para obter informações do usuário
 
 router.get('/users', (req, res) => {
-    const query = "SELECT cI.ClientID, cI.Name,cI.Username, cI.Email, cI.CPF, DATE_FORMAT(cI.Birthdate, '%d/%m/%Y') AS Birthdate, GROUP_CONCAT(a.CEP SEPARATOR ', ') AS CEPs FROM client AS cI JOIN address AS a ON cI.ClientID = a.ClientID GROUP BY cI.ClientID LIMIT 0, 1000;";
+    const query = "SELECT ClientID, Name, Username, Email, CPF, DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate, CEP  FROM client AS cI; ";
 
     con.query(query, (err, results) => {
         if (err) {
@@ -19,122 +19,61 @@ router.get('/users', (req, res) => {
     })
 })
 
+router.get('/users/search', (req, res) => {
+    const { q } = req.query; 
+    const query = `
+    SELECT 
+            ClientID, 
+            Name, 
+            Username, 
+            Email, 
+            CPF,
+            DATE_FORMAT(Birthdate, '%Y-%m-%d') AS BirthdateInput,
+            Complement,
+            City,
+            State,
+            PhoneNumber,
+            DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate,
+            CEP,
+            Address,
+            HouseNum
+        FROM 
+            client
+        WHERE Name LIKE ?`;
+    const searchValue = `%${q}%`;
+  
+    con.query(query, [searchValue], (err, results) => {
+      if (err) {
+        console.error('Erro ao buscar usuarios:', err);
+        res.status(500).json({ error: 'Erro ao buscar usuarios' });
+      } else {
+        res.status(200).json(results);
+      }
+    });
+  });
+
 router.get('/user', (req, res) => {
     const { id } = req.query;
     const query = `
-        SELECT 
-            cI.ClientID, 
-            cI.Name, 
-            cI.Username, 
-            cI.Email, 
-            cI.CPF,
-            DATE_FORMAT(cI.Birthdate, '%Y-%m-%d') AS BirthdateInput,
-            a.Complement,
-            a.City,
-            a.State,
-            GROUP_CONCAT(DISTINCT pN.number SEPARATOR ', ') AS PhoneNumbers,
-            DATE_FORMAT(cI.Birthdate, '%d/%m/%Y') AS Birthdate,
-            GROUP_CONCAT(DISTINCT a.CEP SEPARATOR ', ') AS CEPs,
-            GROUP_CONCAT(DISTINCT a.Address SEPARATOR ', ') AS Addresses,
-            GROUP_CONCAT(DISTINCT a.HouseNum SEPARATOR ', ') AS HouseNumbers,
-            GROUP_CONCAT(DISTINCT a.Complement SEPARATOR ', ') AS Complements
+       SELECT 
+            ClientID, 
+            Name, 
+            Username, 
+            Email, 
+            CPF,
+            DATE_FORMAT(Birthdate, '%Y-%m-%d') AS BirthdateInput,
+            Complement,
+            City,
+            State,
+            PhoneNumber,
+            DATE_FORMAT(Birthdate, '%d/%m/%Y') AS Birthdate,
+            CEP,
+            Address,
+            HouseNum
         FROM 
-            client AS cI
-        JOIN 
-            address AS a ON cI.ClientID = a.ClientID
-        JOIN 
-            phoneNumber AS pN ON cI.ClientID = pN.clientID
+            client
         WHERE 
-            cI.ClientID = ?
-        GROUP BY 
-            cI.ClientID, cI.Name, cI.Username, cI.Email, cI.CPF, cI.Birthdate, a.Complement, a.City, a.State
-        LIMIT 0, 1000;
-    `;
-
-    con.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar usuário', err);
-            res.status(500).send("Erro no servidor");
-        } else {
-            if (results.length > 0) {
-                res.json(results[0]);
-            } else {
-                res.status(404).send("Usuário não encontrado");
-            }
-        }
-    });
-});
-
-router.get('/userCrud', (req, res) => {
-    const { id } = req.query;
-    const query = `
-        SELECT 
-            cI.ClientID, 
-            cI.Name, 
-            cI.Username, 
-            cI.Email, 
-            cI.CPF,
-            DATE_FORMAT(cI.Birthdate, '%Y-%m-%d') AS BirthdateInput
-        FROM 
-            client AS cI
-        WHERE
-            cI.ClientID = ?;    
-                
-    `;
-
-    con.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar usuário', err);
-            res.status(500).send("Erro no servidor");
-        } else {
-            if (results.length > 0) {
-                res.json(results[0]);
-            } else {
-                res.status(404).send("Usuário não encontrado");
-            }
-        }
-    });
-});
-
-router.get('/userPhoneCrud', (req, res) => {
-    const { id } = req.query;
-    const query = `
-        SELECT 
-            pn.Number
-        FROM 
-            phoneNumber AS pn
-        WHERE
-        pn.clientID = ?;       
-    `;
-
-    con.query(query, [id], (err, results) => {
-        if (err) {
-            console.error('Erro ao buscar usuário', err);
-            res.status(500).send("Erro no servidor");
-        } else {
-            if (results.length > 0) {
-                res.json(results[0]);
-            } else {
-                res.status(404).send("Usuário não encontrado");
-            }
-        }
-    });
-});
-router.get('/userAddressCrud', (req, res) => {
-    const { id } = req.query;
-    const query = `
-        SELECT 
-            a.CEP,
-            a.Complement,
-            a.Address,
-            a.HouseNum,
-            a.City,
-            a.State
-        FROM 
-            address AS a
-        WHERE
-        a.clientID = ?;       
-    `;
+            ClientID = ?;    `;
 
     con.query(query, [id], (err, results) => {
         if (err) {
@@ -193,75 +132,23 @@ router.post('/register', async (req, res) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(passwordR, saltRounds);
 
-        // Iniciar a transação
-        con.beginTransaction((err) => {
-            if (err) return res.status(500).json({ success: false, message: 'Erro ao iniciar a transação' });
-
-            // Obter o próximo `clientID` manualmente
             con.query('SELECT MAX(clientID) AS maxClientId FROM client', (err, result) => {
                 if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último clientID' });
                 const newClientID = (result[0].maxClientId || 0) + 1;
 
-                // Inserir na tabela `client`
-                const clientQuery = "INSERT INTO client (clientID, password, birthdate, username, email, cpf, name) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                const clientValues = [newClientID, hashedPassword, birthdate, username, emailR, cpf, name];
+                const clientQuery = "INSERT INTO client (clientID, password, birthdate, username, email, cpf, name, phoneNumber, CEP, city, state, address, houseNum, complement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                const clientValues = [newClientID, hashedPassword, birthdate, username, emailR, cpf, name, phone,cep,city,state,address,houseNum, complement];
 
                 con.query(clientQuery, clientValues, (err, result) => {
+                    console.log(err, result)
                     if (err) {
-                        return con.rollback(() => {
-                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela client' });
-                        });
+                        res.status(500).json({ success: false, message: 'Erro ao registrar' });
+                    } else {
+                        res.json({ success: true, message: 'Cadastro realizado com sucesso' });
                     }
-
-                    // Obter o próximo `addressID` manualmente
-                    con.query('SELECT MAX(addressID) AS maxAddressId FROM address', (err, result) => {
-                        if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último addressID' });
-                        const newAddressID = (result[0].maxAddressId || 0) + 1;
-
-
-                        // Inserir na tabela `address`
-                        const addressQuery = "INSERT INTO address (addressID, clientID, cep, complement, address, houseNum, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                        const addressValues = [newAddressID, newClientID, cep, complement, address, houseNum, city, state];
-
-                        con.query(addressQuery, addressValues, (err, result) => {
-                            if (err) {
-                                return con.rollback(() => {
-                                    res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela address' });
-                                });
-                            }
-
-                            // Obter o próximo `numberID` manualmente
-                            con.query('SELECT MAX(numberID) AS maxNumberId FROM phonenumber', (err, result) => {
-                                if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último numberID' });
-                                const newNumberID = (result[0].maxNumberId || 0) + 1;
-
-                                // Inserir na tabela `phonenumber`
-                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, clientid) VALUES (?, ?, ?)";
-                                const phoneValues = [newNumberID, phone, newClientID];
-                                con.query(phoneQuery, phoneValues, (err, result) => {
-                                    if (err) {
-                                        return con.rollback(() => {
-                                            res.status(500).json({ success: false, message: 'Erro ao inserir dados na tabela phonenumber' });
-                                        });
-                                    }
-
-                                    // Commit se todas as inserções forem bem-sucedidas
-                                    con.commit((err) => {
-                                        if (err) {
-                                            return con.rollback(() => {
-                                                res.status(500).json({ success: false, message: 'Erro ao fazer commit da transação' });
-                                            });
-                                        }
-                                        res.json({ success: true, message: 'Cadastro realizado com sucesso!' });
-                                    });
-                                });
-                            });
-                        });
-                    });
                 });
-            });
-        });
-    } catch (error) {
+            }); 
+        } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Erro no servidor' });
     }
@@ -270,63 +157,68 @@ router.post('/register', async (req, res) => {
 
 router.put('/user/:id', async (req, res) => {
     const clientId = req.params.id;
-    const { cpf, email, name, phoneNumber, birthdate, cep, city, state, address, houseNum, complement, username } = req.body;
+    const { cpf, email, name, phoneNumber, birthdate, cep, city, state, address, houseNum, complement, username, password } = req.body;
 
     try {
         console.log("Iniciou a transação")
-        // Iniciar a transação
-        con.beginTransaction((err) => {
-            if (err) return res.status(500).json({ success: false, message: 'Erro ao iniciar a transação' });
-            console.log("Vai fazer update");
-            // Atualizar dados na tabela `client`
-            const clientQuery = "UPDATE client SET birthdate = ?, username = ?, email = ?, cpf = ?, name = ? WHERE clientID = ?";
-            const clientValues = [birthdate, username, email, cpf, name, clientId];
-            console.log(clientQuery);
-            con.query(clientQuery, clientValues, (err, result) => {
-                console.log(err, result)
-                if (err) {
-                    return con.rollback(() => {
-                        res.status(500).json({ success: false, message: 'Erro ao atualizar dados na tabela client' });
-                    });
-                }
-
-                // Atualizar dados na tabela `address`
-                const addressQuery = "UPDATE address SET cep = ?, complement = ?, address = ?, houseNum = ?, city = ?, state = ? WHERE clientID = ?";
-                const addressValues = [cep, complement, address, houseNum, city, state, clientId];
-
-                con.query(addressQuery, addressValues, (err, result) => {
-                    console.log(err, result)
-                    if (err) {
-                        return con.rollback(() => {
-                            res.status(500).json({ success: false, message: 'Erro ao atualizar dados na tabela address' });
-                        });
-                    }
-
-                    // Atualizar dados na tabela `phonenumber`
-                    const phoneQuery = "UPDATE phonenumber SET number = ? WHERE clientID = ?";
-                    const phoneValues = [phoneNumber, clientId];
-                    console.log(phoneValues)
-                    con.query(phoneQuery, phoneValues, (err, result) => {
-                        console.log(err, result)
-                        if (err) {
-                            return con.rollback(() => {
-                                res.status(500).json({ success: false, message: 'Erro ao atualizar dados na tabela phonenumber' });
-                            });
-                        }
-
-                        // Commit se todas as atualizações forem bem-sucedidas
-                        con.commit((err) => {
-                            if (err) {
-                                return con.rollback(() => {
-                                    res.status(500).json({ success: false, message: 'Erro ao fazer commit da transação' });
-                                });
-                            }
-                            res.json({ success: true, message: 'Dados atualizados com sucesso!' });
-                        });
-                    });
-                });
-            });
+        if(password){
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const clientQuery = `UPDATE Client
+            SET 
+            CPF = ?, 
+            Email = ?, 
+            Name = ?, 
+            PhoneNumber = ?,
+            Birthdate = ?, 
+            CEP = ?, 
+            City = ?, 
+            State = ?, 
+            Address = ?, 
+            HouseNum = ?, 
+            Complement = ?, 
+            Username = ?,
+            Password = ?
+            WHERE 
+                ClientID = ?
+            ;`;
+        const clientValues = [cpf, email, name, phoneNumber, birthdate, cep, city, state, address, houseNum, complement, username, hashedPassword, clientId];
+        con.query(clientQuery, clientValues, (err, result) => {
+            console.log(err, result)
+            if (err) {
+                res.status(500).json({ success: false, message: 'Erro ao atualizar dados na tabela client' });
+            } else {
+                res.json({ success: true, message: 'Dados atualizados com sucesso' });
+            }
         });
+    }else{
+        const clientQuery = `UPDATE Client
+            SET 
+            CPF = ?, 
+            Email = ?, 
+            Name = ?, 
+            PhoneNumber = ?,
+            Birthdate = ?, 
+            CEP = ?, 
+            City = ?, 
+            State = ?, 
+            Address = ?, 
+            HouseNum = ?, 
+            Complement = ?, 
+            Username = ?
+            WHERE 
+                ClientID = ?
+            ;`;
+        const clientValues = [cpf, email, name, phoneNumber, birthdate, cep, city, state, address, houseNum, complement, username, clientId];
+        con.query(clientQuery, clientValues, (err, result) => {
+            console.log(err, result)
+            if (err) {
+                res.status(500).json({ success: false, message: 'Erro ao atualizar dados na tabela client' });
+            } else {
+                res.json({ success: true, message: 'Dados atualizados com sucesso' });
+            }
+        });
+    }
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Erro no servidor' });

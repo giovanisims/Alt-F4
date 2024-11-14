@@ -7,11 +7,10 @@
     <title>Document</title>
 </head>
 <body id="productPage">
-    <h1>Products</h1>
+    <h1>Produtos</h1>
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search...">
-        <button class="search-button">Buscar</button>
-        <button class="add-button" onclick="location.href='crud_add.html'">Adicionar</button>
+        <input type="text" id="search" class="search-bar" placeholder="Pesquise pelo nome" onkeypress="if(event.key === 'Enter') searchProducts(document.getElementById('search').value)">
+        <button class="search-button" onclick="searchProducts(document.getElementById('search').value)">Buscar</button>        <button class="add-button" onclick="location.href='crud_add.html'">Adicionar</button>
     </div>
     <table class="user-table">
         <thead>

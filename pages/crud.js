@@ -21,7 +21,7 @@ const getUsers = () => {
                 <td>${user.Email}</td>
                 <td>${user.CPF}</td>
                 <td>${user.Birthdate}</td>
-                <td>${user.CEPs}</td>
+                <td>${user.CEP}</td>
                 <td>
                     <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
                     <button class="delete-button-user delete-button">Excluir</button>
@@ -36,6 +36,69 @@ const getUsers = () => {
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
+
+
+const searchUsers = (termo) => {
+
+    fetch(`/users/search?q=${termo}`)
+            .then(response => {
+                console.log(response)
+                // Verifica se a resposta foi bem-sucedida
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar usuarios');
+                }
+                return response.json(); // Converte a resposta para JSON
+            })
+            .then(data => {
+                console.log('Usuarios encontrados:', data);
+                const usersTable = document.getElementById('table-body');
+                usersTable.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                console.log(data)
+                data.forEach(user => {
+                    const item = document.createElement('tr');
+                    item.innerHTML = `                         
+                <td>${user.ClientID}</td>
+                <td>${user.Name}</td>
+                <td>${user.Username}</td>
+                <td>${user.Email}</td>
+                <td>${user.CPF}</td>
+                <td>${user.Birthdate}</td>
+                <td>${user.CEP}</td>
+                <td>
+                    <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
+                    <button class="delete-button-user delete-button">Excluir</button>
+                </td>
+            
+                        `;
+                    usersTable.appendChild(item);
+                });
+            } else {
+                const item = document.createElement('tr');
+                    item.innerHTML = `                         
+                <td>${data.ClientID}</td>
+                <td>${data.Name}</td>
+                <td>${data.Username}</td>
+                <td>${data.Email}</td>
+                <td>${data.CPF}</td>
+                <td>${data.Birthdate}</td>
+                <td>${data.CEP}</td>
+                <td>
+                    <button class="edit-button" onclick="loadUserById(${user.ClientID})">Editar</button>
+                    <button class="delete-button-user delete-button">Excluir</button>
+                </td>
+            
+                        `;
+                    usersTable.appendChild(item);
+            }
+            })
+            .catch(error => {
+                console.error('Erro:', error); // Trata erros, caso ocorram
+            });
+}
+
+
 
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-button-user')) {
@@ -69,7 +132,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
 
 const loadUser = () => {
-    fetch(`/userCrud?id=${myParam}`)
+    fetch(`/user?id=${myParam}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro na requisição');
@@ -83,151 +146,61 @@ const loadUser = () => {
             const edit = document.getElementById('edit');
             edit.innerHTML = '';
             const item = document.createElement('form');
-
-
             item.innerHTML = `
-                    <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" value="${data.Email}"required>
-            </div>
             <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="name" name="name" class="form-control" value="${data.Name}" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="form-control" value="${data.Username}" required>
-            </div>
-            <div class="form-group">
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" name="cpf" class="form-control"  value="${data.CPF}"required>
-            </div>
-            <div class="form-group">
-                <label for="birthdate">Data de Nascimento:</label>
-                <input type="date" id="birthdate" name="birthdate" class="form-control" value="${data.BirthdateInput}" required>
-            </div>
-            `;
-
-            fetch(`/userPhoneCrud?id=${myParam}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na requisição');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    const item2 = document.createElement('div');
-                    item2.className = "form-group"
-                    const item3 = document.createElement('label');
-                    item3.innerHTML = "Numero de Telefone:"
-                    item3.for = "phoneNumber"
-                    item2.appendChild(item3);
-
-                    if (Array.isArray(data)) {
-                        data.forEach((phoneNumber, index) => {
-                            const item4 = document.createElement('input');
-                            item4.value = `${phoneNumber.Number}`;
-                            item4.type = 'number';
-                            item4.id = `phoneNumber-${index}`;
-                            item4.name = "phoneNumber"
-                            item2.appendChild(item4);
-                        })
-                    } else {
-                        console.log(data.Number)
-                        const item4 = document.createElement('input');
-                        item4.value = `${data.Number}`;
-                        item4.type = 'text';
-                        item4.id = `phoneNumber`;
-                        item4.name = "phoneNumber"
-                        item2.appendChild(item4);
-                    }
-
-                    item.appendChild(item2);
-                })
-                .catch(error => console.error('Erro ao carregar os produtos', error));
-
-            fetch(`/userAddressCrud?id=${myParam}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na requisição');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log(data);
-                    const item5 = document.createElement('div');
-                    if (Array.isArray(data)) {
-                        data.forEach((address, index) => {
-                            console.log("É array")
-                            item5.innerHTML = `
-                            <div class="form-group">
-                                <label for="cep">Cep:</label>
-                                <input type="text" id="cep-${index}" value="${address.CEP}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Endereço:</label>
-                                <input type="text" id="address-${index}" value="${address.Address}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="houseNum">Número:</label>
-                                <input type="text" id="houseNum-${index}" value="${address.HouseNum}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="city">Cidade:</label>
-                                <input type="text" id="city-${index}" value="${address.City}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="state">Estado:</label>
-                                <input type="text" id="state-${index}" value="${address.State}" required>
-                            <div>
-                            <div class="form-group">
-                                <label for="state">Complemento:</label>
-                                <input type="text" id="complement-${index}" value="${address.Complement}" required>
-                            </div>
-                            `;
-                        })
-                    } else {
-                        console.log("Não é array")
-                        item5.innerHTML = `
-                            <div class="form-group">
-                                <label for="cep">Cep:</label>
-                                <input type="text" id="cep" value="${data.CEP}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Endereço:</label>
-                                <input type="text" id="address" value="${data.Address}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="houseNum">Número:</label>
-                                <input type="text" id="houseNum" value="${data.HouseNum}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="city">Cidade:</label>
-                                <input type="text" id="city" value="${data.City}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="state">Estado:</label>
-                                <input type="text" id="state" value="${data.State}" required>
-                            <div>
-                            <div class="form-group">
-                                <label for="state">Complemento:</label>
-                                <input type="text" id="complement" value="${data.Complement}" required>
-                            </div>
-                            `;
-                    }
-
-                    item.appendChild(item5);
-                })
-                .catch(error => console.error('Erro ao carregar os produtos', error));
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" value="${data.Email}"required>
+    </div>
+    <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <input type="text" id="cpf" name="cpf" class="form-control"  value="${data.CPF}"required>
+    </div>
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" class="form-control" value="${data.Username}" required>
+    </div>
+        <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Se não quiser alterar é só deixar em branco">
+    </div>
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="name" name="name" class="form-control" value="${data.Name}" required>
+    </div>
+    <div class="form-group">
+        <label for="birthdate">Data de Nascimento:</label>
+        <input type="date" id="birthdate" name="birthdate" class="form-control" value="${data.BirthdateInput}" required>
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Número de Telefone:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value="${data.PhoneNumber}"required>
+    </div>
+    <div class="form-group">
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" class="form-control" value="${data.CEP}" required>
+    </div>
+    <div class="form-group">
+        <label for="address">Endereço:</label>
+        <input type="text" id="address" name="address" class="form-control" value="${data.Address}" required>
+    </div>
+    <div class="form-group">
+        <label for="city">Cidade:</label>
+        <input type="text" id="city" name="city" class="form-control" value="${data.City}" required>
+    </div>
+    <div class="form-group">
+        <label for="state">Estado:</label>
+        <input type="text" id="state" name="state" class="form-control" value="${data.State}" required>
+    </div>
+    <div class="form-group">
+        <label for="houseNum">Número da Casa:</label>
+        <input type="text" id="houseNum" name="houseNum" class="form-control"  value="${data.HouseNum}"required>
+    </div>
+    <div class="form-group">
+        <label for="complement">Complemento:</label>
+        <input type="text" id="complement" name="complement" class="form-control" value="${data.Complement}">
+    </div>
+    <button type="button" class="submit" onclick="handleSubmit()"/>Submit</button>`;
             edit.appendChild(item);
-            const button = document.createElement("button");
-            button.className = "submit";
-            button.type = "button";
-            button.textContent = "Submit";
-            button.onclick = handleSubmit;
-            item.appendChild(button);
-
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
@@ -246,8 +219,10 @@ const handleSubmit = () => {
         state: document.getElementById('state').value,
         houseNum: document.getElementById('houseNum').value,
         complement: document.getElementById('complement').value,
-        username: document.getElementById('username').value
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value ? document.getElementById('password').value : 0
     };
+    console.log(JSON.stringify(formData))
 
     // Faz a requisição PUT para atualizar os dados do usuário
     fetch(`/user/${myParam}`, {
@@ -305,6 +280,64 @@ const getProducts = () => {
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
 
+const searchProducts = (termo) => {
+
+    fetch(`/products/search?q=${termo}`)
+            .then(response => {
+                console.log(response)
+                // Verifica se a resposta foi bem-sucedida
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar produtos');
+                }
+                return response.json(); // Converte a resposta para JSON
+            })
+            .then(data => {
+                console.log('Produtos encontrados:', data);
+                const productsTable = document.getElementById('table-body');
+            productsTable.innerHTML = '';
+
+            if (Array.isArray(data)) {
+                console.log(data)
+                data.forEach(product => {
+                    const item = document.createElement('tr');
+                    item.innerHTML = `                         
+                <td>${product.ProductID}</td>
+                <td>${product.Name}</td>
+                <td>${product.Rating}</td>
+                <td>${product.Price}</td>
+                <td>${product.Stock}</td>
+                <td>${product.Type}</td>
+                <td>
+                    <button class="edit-button" onclick="loadProductById(${product.ProductID})">Editar</button>
+                    <button class="delete-button-product delete-button">Excluir</button>
+                </td>
+            
+                        `;
+                    productsTable.appendChild(item);
+                });
+            } else {
+                console.error('Os dados retornados não são um array:', data);
+                const item = document.createElement('tr');
+                    item.innerHTML = `                         
+                <td>${data.ProductID}</td>
+                <td>${data.Name}</td>
+                <td>${data.Rating}</td>
+                <td>${data.Price}</td>
+                <td>${data.Stock}</td>
+                <td>${data.Type}</td>
+                <td>
+                    <button class="edit-button" onclick="loadProductById(${product.ProductID})">Editar</button>
+                    <button class="delete-button-product delete-button">Excluir</button>
+                </td>
+            
+                        `;
+                    productsTable.appendChild(item)
+            }
+            })
+            .catch(error => {
+                console.error('Erro:', error); // Trata erros, caso ocorram
+            });
+}
 
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-button-product')) {

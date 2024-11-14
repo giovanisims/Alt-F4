@@ -9,8 +9,8 @@
 <body id="userPage">
     <h1>Users</h1>
     <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search...">
-        <button class="search-button">Buscar</button>
+        <input type="text" id="search" class="search-bar" placeholder="Pesquise pelo nome" onkeypress="if(event.key === 'Enter') searchUsers(document.getElementById('search').value)">
+        <button class="search-button" onclick="searchUsers(document.getElementById('search').value)">Buscar</button>
         <button class="add-button" onclick="location.href='login_registration.html'">Adicionar</button>
     </div>
     <table class="user-table">

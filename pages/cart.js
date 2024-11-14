@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const productId = event.target.dataset.id;
                 const updatedCart = cart.filter(item => item.id !== productId);
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
-                updateCart(); 
+                updateCart();
                 location.reload();
             });
         });
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         document.getElementById('endBuy').addEventListener("click", function () {
-            const lastLoginUserId = localStorage.getItem("lastLoginUserId"); 
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId");
             if (lastLoginUserId) {
                 document.getElementById("popUp").style.display = "flex";
             } else {
@@ -114,6 +114,32 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById("cancel").style.display = "block";
             document.getElementById("confirm").style.display = "block";
             document.getElementById("text").textContent = "";
+            cart.forEach(product => {
+                fetch(`/buy/${product.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ quantity: product.quantity })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(text);
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data.message); // 'Compra realizada com sucesso!'
+                        console.log(`Novo estoque: ${data.newStock}`);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao realizar a compra:', error);
+                        alert(error.message);
+                    });
+
+            })
             cart = [];
             localStorage.removeItem("cart");
             updateCart();
