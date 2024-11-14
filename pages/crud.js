@@ -40,26 +40,26 @@ const getUsers = () => {
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-button-user')) {
         const userId = event.target.closest('tr').querySelector('td').innerText;
-        
+
         if (confirm('Você tem certeza que deseja deletar este usuário?')) {
             fetch(`/users/${userId}`, {
                 method: 'DELETE'
             })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Usuário deletado com sucesso');
-                    getUsers(); 
-                } else {
-                    console.error('Erro ao deletar o usuário');
-                }
-            })
-            .catch(error => console.error('Erro ao deletar o usuário', error));
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Usuário deletado com sucesso');
+                        getUsers();
+                    } else {
+                        console.error('Erro ao deletar o usuário');
+                    }
+                })
+                .catch(error => console.error('Erro ao deletar o usuário', error));
         }
     }
 });
 
 const loadUserById = (userID) => {
-    location.href=`crud_edit.html?id=${userID}&type=user`;
+    location.href = `crud_edit.html?id=${userID}&type=user`;
 
 }
 
@@ -69,7 +69,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('id');
 
 const loadUser = () => {
-    fetch(`/user?id=${myParam}`)
+    fetch(`/userCrud?id=${myParam}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro na requisição');
@@ -83,57 +83,151 @@ const loadUser = () => {
             const edit = document.getElementById('edit');
             edit.innerHTML = '';
             const item = document.createElement('form');
+
+
             item.innerHTML = `
+                    <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" value="${data.Email}"required>
+            </div>
             <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" class="form-control" value="${data.Email}"required>
-    </div>
-    <div class="form-group">
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" class="form-control"  value="${data.CPF}"required>
-    </div>
-    <div class="form-group">
-        <label for="nome">Nome:</label>
-        <input type="text" id="name" name="name" class="form-control" value="${data.Name}" required>
-    </div>
-    <div class="form-group">
-        <label for="birthdate">Data de Nascimento:</label>
-        <input type="date" id="birthdate" name="birthdate" class="form-control" value="${data.BirthdateInput}" required>
-    </div>
-    <div class="form-group">
-        <label for="phoneNumber">Número de Telefone:</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" value="${data.PhoneNumbers}"required>
-    </div>
-    <div class="form-group">
-        <label for="cep">CEP:</label>
-        <input type="text" id="cep" name="cep" class="form-control" value="${data.CEPs}" required>
-    </div>
-    <div class="form-group">
-        <label for="address">Endereço:</label>
-        <input type="text" id="address" name="address" class="form-control" value="${data.Addresses}" required>
-    </div>
-    <div class="form-group">
-        <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city" class="form-control" value="${data.City}" required>
-    </div>
-    <div class="form-group">
-        <label for="state">Estado:</label>
-        <input type="text" id="state" name="state" class="form-control" value="${data.State}" required>
-    </div>
-    <div class="form-group">
-        <label for="houseNum">Número da Casa:</label>
-        <input type="text" id="houseNum" name="houseNum" class="form-control"  value="${data.HouseNumbers}"required>
-    </div>
-    <div class="form-group">
-        <label for="complement">Complemento:</label>
-        <input type="text" id="complement" name="complement" class="form-control" value="${data.Complement}">
-    </div>
-    <div class="form-group">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" class="form-control" value="${data.Username}" required>
-    </div>
-    <button type="button" class="submit" onclick="handleSubmit()"/>Submit</button>`;
+                <label for="nome">Nome:</label>
+                <input type="text" id="name" name="name" class="form-control" value="${data.Name}" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="${data.Username}" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" name="cpf" class="form-control"  value="${data.CPF}"required>
+            </div>
+            <div class="form-group">
+                <label for="birthdate">Data de Nascimento:</label>
+                <input type="date" id="birthdate" name="birthdate" class="form-control" value="${data.BirthdateInput}" required>
+            </div>
+            `;
+
+            fetch(`/userPhoneCrud?id=${myParam}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    const item2 = document.createElement('div');
+                    item2.className = "form-group"
+                    const item3 = document.createElement('label');
+                    item3.innerHTML = "Numero de Telefone:"
+                    item3.for = "phoneNumber"
+                    item2.appendChild(item3);
+
+                    if (Array.isArray(data)) {
+                        data.forEach((phoneNumber, index) => {
+                            const item4 = document.createElement('input');
+                            item4.value = `${phoneNumber.Number}`;
+                            item4.type = 'number';
+                            item4.id = `phoneNumber-${index}`;
+                            item4.name = "phoneNumber"
+                            item2.appendChild(item4);
+                        })
+                    } else {
+                        console.log(data.Number)
+                        const item4 = document.createElement('input');
+                        item4.value = `${data.Number}`;
+                        item4.type = 'text';
+                        item4.id = `phoneNumber`;
+                        item4.name = "phoneNumber"
+                        item2.appendChild(item4);
+                    }
+
+                    item.appendChild(item2);
+                })
+                .catch(error => console.error('Erro ao carregar os produtos', error));
+
+            fetch(`/userAddressCrud?id=${myParam}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    const item5 = document.createElement('div');
+                    if (Array.isArray(data)) {
+                        data.forEach((address, index) => {
+                            console.log("É array")
+                            item5.innerHTML = `
+                            <div class="form-group">
+                                <label for="cep">Cep:</label>
+                                <input type="text" id="cep-${index}" value="${address.CEP}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Endereço:</label>
+                                <input type="text" id="address-${index}" value="${address.Address}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="houseNum">Número:</label>
+                                <input type="text" id="houseNum-${index}" value="${address.HouseNum}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Cidade:</label>
+                                <input type="text" id="city-${index}" value="${address.City}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Estado:</label>
+                                <input type="text" id="state-${index}" value="${address.State}" required>
+                            <div>
+                            <div class="form-group">
+                                <label for="state">Complemento:</label>
+                                <input type="text" id="complement-${index}" value="${address.Complement}" required>
+                            </div>
+                            `;
+                        })
+                    } else {
+                        console.log("Não é array")
+                        item5.innerHTML = `
+                            <div class="form-group">
+                                <label for="cep">Cep:</label>
+                                <input type="text" id="cep" value="${data.CEP}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Endereço:</label>
+                                <input type="text" id="address" value="${data.Address}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="houseNum">Número:</label>
+                                <input type="text" id="houseNum" value="${data.HouseNum}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">Cidade:</label>
+                                <input type="text" id="city" value="${data.City}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Estado:</label>
+                                <input type="text" id="state" value="${data.State}" required>
+                            <div>
+                            <div class="form-group">
+                                <label for="state">Complemento:</label>
+                                <input type="text" id="complement" value="${data.Complement}" required>
+                            </div>
+                            `;
+                    }
+
+                    item.appendChild(item5);
+                })
+                .catch(error => console.error('Erro ao carregar os produtos', error));
             edit.appendChild(item);
+            const button = document.createElement("button");
+            button.className = "submit";
+            button.type = "button";
+            button.textContent = "Submit";
+            button.onclick = handleSubmit;
+            item.appendChild(button);
+
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }
@@ -215,20 +309,20 @@ const getProducts = () => {
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('delete-button-product')) {
         const productId = event.target.closest('tr').querySelector('td').innerText;
-        
+
         if (confirm('Você tem certeza que deseja deletar este produto?')) {
             fetch(`/products/${productId}`, {
                 method: 'DELETE'
             })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Produto deletado com sucesso');
-                    getProducts(); 
-                } else {
-                    console.error('Erro ao deletar o produto');
-                }
-            })
-            .catch(error => console.error('Erro ao deletar o produto', error));
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Produto deletado com sucesso');
+                        getProducts();
+                    } else {
+                        console.error('Erro ao deletar o produto');
+                    }
+                })
+                .catch(error => console.error('Erro ao deletar o produto', error));
         }
     }
 });
@@ -267,7 +361,7 @@ const addProduct = () => {
 
 
 const loadProductById = (userID) => {
-    location.href=`crud_edit.html?id=${userID}&type=product`;
+    location.href = `crud_edit.html?id=${userID}&type=product`;
 
 }
 
@@ -355,7 +449,7 @@ const editProduct = () => {
         })
         .then(data => {
             alert(data.message || 'Produto atualizado com sucesso!');
-            window.location.href='crud_products.html';
+            window.location.href = 'crud_products.html';
         })
         .catch(error => console.error('Erro ao enviar os dados', error));
 };
