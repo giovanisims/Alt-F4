@@ -24,7 +24,7 @@ const loadProducts = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="https://via.placeholder.com/250x150" alt="Imagem do produto">
+                                <img class="product-image" src="https://via.placeholder.com/250x150" alt="imagem do ${product.Name}">
                             </div>
                             <div class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -59,7 +59,7 @@ const loadProductsPC = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="imagem do ${product.Name}">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})' class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -95,7 +95,7 @@ const loadProductsMobile = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="imagem do ${product.Name}">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})'  class="productInfo">
                                 <h3>${product.Name}</h3>
@@ -131,7 +131,7 @@ const loadProductsConsole = () => {
                     item.className = 'productCard';
                     item.innerHTML = `
                             <div class="productImage">
-                                <img class="product-image" src="${product.URL}" alt="Imagem do produto">
+                                <img class="product-image" src="${product.URL}" alt="imagem do ${product.Name}">
                             </div>
                             <div onclick='loadProductById(${product.ProductID})' class="productInfo">
                                 <h3>${product.Name}</h3>

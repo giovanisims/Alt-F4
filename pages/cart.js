@@ -1,25 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+document.addEventListener('DOMContentLoaded', function () {
+    var cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // Função para atualizar o carrinho
     function updateCart() {
         const cartContainer = document.getElementById("products");
         const summary = document.getElementById("summary");
-        const summarySubtotal = document.querySelector(".summaryInfo .subtotal");
-        const summaryFrete = document.querySelector(".summaryInfo .frete");
-        const summaryTotal = document.querySelector(".summaryInfo .total");
+        const content = document.getElementById("content");
 
-        cartContainer.innerHTML = ''; // Limpar o conteúdo atual do carrinho
-        
+        cartContainer.innerHTML = '';
+
         if (cart.length === 0) {
             cartContainer.innerHTML = '<p class="cartEmpty">Seu carrinho está vazio. Adicione produtos para continuar.</p>';
-            return; // Interrompe a execução do código abaixo
+            return;
         }
-        
+
         summary.innerHTML = '';
         let subtotal = 0;
 
-        // Exibir os produtos no carrinho
         cart.forEach(product => {
             const productElement = document.createElement('div');
             productElement.classList.add('product');
@@ -68,23 +64,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h4>Total</h4>
                 <p>R$${total.toFixed(2)}</p>
             </div>
-            <button>Finalizar compra</button>
+            <button id='endBuy'>Finalizar compra</button>
         `;
 
-        // Adicionar o evento de clique nos ícones de exclusão
         document.querySelectorAll(".fa-xmark").forEach(button => {
-            button.addEventListener('click', function(event) {
+            button.addEventListener('click', function (event) {
                 const productId = event.target.dataset.id;
                 const updatedCart = cart.filter(item => item.id !== productId);
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
-                updateCart(); // Recalcular o carrinho
+                updateCart(); 
                 location.reload();
             });
         });
 
-        // Atualizar quantidade do produto
         document.querySelectorAll(".productSize input").forEach(input => {
-            input.addEventListener('change', function(event) {
+            input.addEventListener('change', function (event) {
                 const productId = event.target.dataset.id;
                 const newQuantity = parseInt(event.target.value);
 
@@ -92,12 +86,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (productIndex !== -1) {
                     cart[productIndex].quantity = newQuantity;
                     localStorage.setItem("cart", JSON.stringify(cart));
-                    updateCart(); // Recalcular o carrinho
+                    updateCart();
                 }
             });
         });
+
+        document.getElementById('endBuy').addEventListener("click", function () {
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId"); 
+            if (lastLoginUserId) {
+                document.getElementById("popUp").style.display = "flex";
+            } else {
+                alert("Você precisa estar logado para fazer essa ação!")
+                location.href = 'login_registration.html';
+            }
+        })
     }
 
-    // Atualizar o carrinho na página
+    document.getElementById('confirm').addEventListener("click", function () {
+        document.getElementById("cancel").style.display = "none";
+        document.getElementById("confirm").style.display = "none";
+
+        document.getElementById("text").textContent = "Compra realizada com sucesso!";
+
+
+        setTimeout(function () {
+            document.getElementById("popUp").style.display = "none";
+            document.getElementById("cancel").style.display = "block";
+            document.getElementById("confirm").style.display = "block";
+            document.getElementById("text").textContent = "";
+            cart = [];
+            localStorage.removeItem("cart");
+            updateCart();
+        }, 3000);
+    });
+
+    document.getElementById('cancel').addEventListener("click", function () {
+        document.getElementById("cancel").style.display = "none";
+        document.getElementById("confirm").style.display = "none";
+
+        document.getElementById("text").textContent = "Compra cancelada com sucesso!"
+
+        setTimeout(function () {
+            document.getElementById("popUp").style.display = "none";
+            document.getElementById("cancel").style.display = "block";
+            document.getElementById("confirm").style.display = "block";
+            document.getElementById("text").textContent = "";
+        }, 3000);
+    })
+
+
     updateCart();
 });

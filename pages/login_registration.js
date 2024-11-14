@@ -236,7 +236,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const result = await response.json();
                 if (result.success) {
                     alert('Login bem-sucedido!');
-                    const clientid = result.clientid; 
+                    const clientid = result.clientid;
+                    localStorage.setItem("lastLoginUserId", clientid); 
                     location.href = `profile.html?id=${clientid}`;
                 } else {
                     alert('Falha no login: ' + result.message);

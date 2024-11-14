@@ -26,7 +26,7 @@
             </ul>
         </nav>
         <div class="icons">
-            <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login_registration.html'"></i>
+            <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
             <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
             <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
         </div>
@@ -37,7 +37,16 @@
             <a href="index.html">continue comprando</a>
         </div>
     </div>
-    <div class="content">
+    <div class="content" id="content">
+        <div class="center" id="popUp">
+            <div class="pop-up-buy">
+                <div id="text"></div>
+                <div class="buttons">
+                    <button type="button" id="confirm">Confirmar</button>
+                    <button type="button" id="cancel">Cancelar</button>
+                </div>
+            </div>
+        </div>
         <main>
             <div id="products">
                 <div class="product">
@@ -96,6 +105,17 @@
             }
 
         });
+        function redirectToPage() {
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId");
+
+            if (lastLoginUserId) {
+                // Se houver um ID salvo, redireciona para a página de perfil
+                location.href = `profile.html?id=${lastLoginUserId}`;
+            } else {
+                // Se não houver ID salvo, redireciona para a página de login
+                location.href = 'login_registration.html';
+            }
+        }
     </script>
     <script src="cart.js"></script>
 </body>

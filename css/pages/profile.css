@@ -112,12 +112,19 @@ label{
 
 button{
     margin-top: 4%;
-    width: 80%;
+    width: 40%;
     align-self: center;
 }
 
-::-webkit-input-placeholder{
+input{
     font-family: 'Noto Sans', sans-serif;
     font-size: 0.8rem;
+    color: #595757;
+}
+
+.editInfo .info:nth-child(2){
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 

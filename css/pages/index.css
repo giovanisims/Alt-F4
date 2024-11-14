@@ -1,5 +1,6 @@
 @import url('main.css');
 @import url('../layout/header.css');
+@import url('../layout/footer.css');
 
 li:nth-child(1){
     border-bottom: 1px solid #E8EBED;

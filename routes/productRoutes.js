@@ -61,7 +61,7 @@ router.get('/productsConsole', (req, res) => {
 // Rota para obter um produto específico
 router.get('/product', (req, res) => {
     const { id } = req.query;
-    const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock, p.URL, p.Type FROM product AS p WHERE ProductID = ?";
+    const query = "SELECT p.ProductID, p.Name, p.Rating, p.Price, p.Stock, p.URL, p.Type, p.Description FROM product AS p WHERE ProductID = ?";
 
     con.query(query, [id], (err, results) => {
         if (err) {

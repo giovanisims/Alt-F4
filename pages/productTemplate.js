@@ -19,18 +19,15 @@ const loadProduct = () => {
             }
             const item = document.createElement('div');
             item.className = 'img';
-            item.innerHTML = `<img src="${data.URL ? data.URL : 'https://via.placeholder.com/300'}" alt="imagem do produto">`;
+            item.innerHTML = `<img src="${data.URL ? data.URL : 'https://via.placeholder.com/300'}" alt="imagem do ${data.Name}">`;
             const item2 = document.createElement('div');
             item2.className = 'text';
             item2.innerHTML = `${data.Name}</div>
                             <div class="rating">${rating}</div>
                             <div class="price">R$${data.Price}</div>
                             <button type="button" class="buyButton">Adicionar ao Carrinho</button>
-                            <div class="description">Product description goes here. This is a placeholder text.</div>
-                            <div class="shipping">
-                                <label for="shipping">Calcular o frete</label>
-                                <input type="text" name="shipping" id="shipping" placeholder="00000-000">
-                            </div>`
+                            <div class="description">${data.Description}</div>
+                           `
             productContainer.appendChild(item);
             productContainer.appendChild(item2);
             document.querySelector('.buyButton').addEventListener('click', function () {
@@ -50,21 +47,25 @@ const loadProduct = () => {
             const cartPopUp = document.getElementById("cart");
             cartPopUp.innerHTML = `
             <div class="infoCart">
-                <div class="title">
-                    <i class="fa-regular fa-circle-check"></i>
-                    <p>Adicionado ao carrinho</p>
-                    <i class="fa-solid fa-xmark" id="close"></i>
-                </div>
-                <div class="middle">
+            <div class="title">
+            <i class="fa-regular fa-circle-check"></i>
+            <p>Adicionado ao carrinho</p>
+            <i class="fa-solid fa-xmark" id="close"></i>
+            </div>
+            <div class="middle">
                     <img src="${data.URL}">
                     <div class="infoProduct">
-                        <p>${data.Name}</p>
-                        <p>${data.Type}</p>
-                        <p>${data.Price}</p>
+                    <p>${data.Name}</p>
+                    <p>${data.Type}</p>
+                    <p>${data.Price}</p>
                     </div>
-                </div>
-                <button onclick="location.href='cart.html'">Ver carrinho</button>
-            </div>`;
+                    </div>
+                    <button onclick="location.href='cart.html'">Ver carrinho</button>
+                    </div>`;
+            document.getElementById('close').addEventListener('click', function () {
+                const cart = document.getElementById('cart');
+                cart.style.display = 'none';
+            });
         })
         .catch(error => console.error('Erro ao carregar os produtos', error));
 }

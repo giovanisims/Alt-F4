@@ -65,6 +65,91 @@ router.get('/user', (req, res) => {
     });
 });
 
+router.get('/userCrud', (req, res) => {
+    const { id } = req.query;
+    const query = `
+        SELECT 
+            cI.ClientID, 
+            cI.Name, 
+            cI.Username, 
+            cI.Email, 
+            cI.CPF,
+            DATE_FORMAT(cI.Birthdate, '%Y-%m-%d') AS BirthdateInput
+        FROM 
+            client AS cI
+        WHERE
+            cI.ClientID = ?;    
+                
+    `;
+
+    con.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuário', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            if (results.length > 0) {
+                res.json(results[0]);
+            } else {
+                res.status(404).send("Usuário não encontrado");
+            }
+        }
+    });
+});
+
+router.get('/userPhoneCrud', (req, res) => {
+    const { id } = req.query;
+    const query = `
+        SELECT 
+            pn.Number
+        FROM 
+            phoneNumber AS pn
+        WHERE
+        pn.clientID = ?;       
+    `;
+
+    con.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuário', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            if (results.length > 0) {
+                res.json(results[0]);
+            } else {
+                res.status(404).send("Usuário não encontrado");
+            }
+        }
+    });
+});
+router.get('/userAddressCrud', (req, res) => {
+    const { id } = req.query;
+    const query = `
+        SELECT 
+            a.CEP,
+            a.Complement,
+            a.Address,
+            a.HouseNum,
+            a.City,
+            a.State
+        FROM 
+            address AS a
+        WHERE
+        a.clientID = ?;       
+    `;
+
+    con.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar usuário', err);
+            res.status(500).send("Erro no servidor");
+        } else {
+            if (results.length > 0) {
+                res.json(results[0]);
+            } else {
+                res.status(404).send("Usuário não encontrado");
+            }
+        }
+    });
+});
+
 // Rota para login
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -133,6 +218,7 @@ router.post('/register', async (req, res) => {
                         if (err) return res.status(500).json({ success: false, message: 'Erro ao obter o último addressID' });
                         const newAddressID = (result[0].maxAddressId || 0) + 1;
 
+
                         // Inserir na tabela `address`
                         const addressQuery = "INSERT INTO address (addressID, clientID, cep, complement, address, houseNum, city, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                         const addressValues = [newAddressID, newClientID, cep, complement, address, houseNum, city, state];
@@ -150,9 +236,8 @@ router.post('/register', async (req, res) => {
                                 const newNumberID = (result[0].maxNumberId || 0) + 1;
 
                                 // Inserir na tabela `phonenumber`
-                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, fk_client_clientid) VALUES (?, ?, ?)";
+                                const phoneQuery = "INSERT INTO phonenumber (numberID, number, clientid) VALUES (?, ?, ?)";
                                 const phoneValues = [newNumberID, phone, newClientID];
-
                                 con.query(phoneQuery, phoneValues, (err, result) => {
                                     if (err) {
                                         return con.rollback(() => {
@@ -250,19 +335,19 @@ router.put('/user/:id', async (req, res) => {
 
 
 router.delete('/users/:id', (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
 
     const query = "DELETE FROM client WHERE clientid =?";
 
     con.query(query, [id], (err, result) => {
-        if(err){
+        if (err) {
             console.error('Erro ao deletar usuário');
-            res.status(500).json({success: false, message:"Erro no servidor"});
+            res.status(500).json({ success: false, message: "Erro no servidor" });
         } else {
-            if(result.affectedRows > 0){
-                res.json({success: true, message:"Usuário deletado com sucesso"});
-            } else{
-                res.status(404).json({success: false, message:"Usuário não encontrado"})
+            if (result.affectedRows > 0) {
+                res.json({ success: true, message: "Usuário deletado com sucesso" });
+            } else {
+                res.status(404).json({ success: false, message: "Usuário não encontrado" })
             }
         }
     })
