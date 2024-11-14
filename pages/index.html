@@ -7,13 +7,13 @@
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
     <title>Alt+F4</title>
-    <link rel="stylesheet" href="css/pages/index.css">
+    <link rel="stylesheet" href="/css/pages/index.css">
 </head>
 
 <body>
-    <header>
+    <header id="start">
         <div class="logo">
-            <img src="images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'">
+            <img src="../images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'">
         </div>
         <nav id="navBar">
             <ul class="menuBar">
@@ -21,35 +21,36 @@
                 <li><a href="mobile.html">Mobile</a></li>
                 <li><a href="console.html">Console</a></li>
                 <li><a href="pc.html">PC</a></li>
-                <li><a href="suporte.html">Suporte</a></li>
-                <li><a href="sobreNos.html">Sobre nós</a></li>
+                <li><a href="suport.html">Suporte</a></li>
+                <li><a href="aboutUs.html">Sobre nós</a></li>
             </ul>
         </nav>
         <div class="icons">
-            <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login_registration.html'"></i>
+            <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
             <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
             <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
         </div>
     </header>
     <main>
-        <div class="pag">
+        <div class="pag" id="products">
             <h1>Bem-vindo ao Alt+F4</h1>
-            <p class="title">Explore uma ampla gama de periféricos de tecnologia organizados em categorias para<br> fácil navegação e
+            <p class="title">Explore uma ampla gama de periféricos de tecnologia organizados em categorias para<br>
+                fácil navegação e
                 navegação
             </p>
             <div class="photo-tabs">
                 <div class="photo-tab" onclick="location.href='pc.html'">
-                    <img src="images/keyboard.png">
+                    <img src="../images/keyboard.png">
                     <h5>Teclados</h5>
                     <p>Descubra os teclados mais recentes com recursos avançados e designs ergonômicos</p>
                 </div>
                 <div class="photo-tab" onclick="location.href='pc.html'">
-                    <img src="images/mouse.png" alt="">
+                    <img src="../images/mouse.png" alt="">
                     <h5>Mouses</h5>
                     <p>Encontre o mouse perfeito para suas necessidades, seja para jogos ou tarefas de produtividade</p>
                 </div>
                 <div class="photo-tab" onclick="location.href='pc.html'">
-                    <img src="images/headset.png" alt="">
+                    <img src="../images/headset.png" alt="">
                     <h5>Headsets</h5>
                     <p>Imersão em áudio de alta qualidade com nossa seleção de headsets premium</p>
                 </div>
@@ -60,12 +61,13 @@
             <p class="title">Descubra periféricos de tecnologia de ponta que aprimoram sua experiência digital</p>
             <div class="media-tabs">
                 <div class=" media-tab">
-                    <video src="images/smartwacth.mp4" autoplay loop playsInline muted></video>
+                    <video src="../images/smartwacth.mp4" autoplay loop playsInline muted></video>
                     <h4>Smartwacth</h4>
-                    <p>Eleve seu estilo de vida com o mais recente smartwatch! Repleto de recursos avançados e design elegante, é o seu companheiro perfeito.</p>
+                    <p>Eleve seu estilo de vida com o mais recente smartwatch! Repleto de recursos avançados e design
+                        elegante, é o seu companheiro perfeito.</p>
                 </div>
                 <div class="media-tab">
-                    <video src="images/foneDeOuvido.mp4" autoplay loop playsInline muted></video>
+                    <video src="../images/foneDeOuvido.mp4" autoplay loop playsInline muted></video>
                     <h4>Earbuds e Headset</h4>
                     <p>Descubra o som como nunca antes! Os novos fones de ouvido combinam tecnologia de ponta e total
                         conforto para transformar cada batida em uma experiência imersiva.</p>
@@ -84,7 +86,8 @@
                     </div>
                     <div class="text">
                         <p class="name">Emily Jonhson</p>
-                        <p>Adoro a qualidade dos produtos que comprei na Alt+F4. O atendimento ao cliente também foi excepcional.</p>
+                        <p>Adoro a qualidade dos produtos que comprei na Alt+F4. O atendimento ao cliente também foi
+                            excepcional.</p>
                     </div>
                 </div>
                 <div class="review-tab">
@@ -103,7 +106,8 @@
                     </div>
                     <div class="text">
                         <p class="name">Sophia Williams</p>
-                        <p>Impressionada com a entrega rápida e o produto superou minhas expectativas. Recomendo muito este site!</p>
+                        <p>Impressionada com a entrega rápida e o produto superou minhas expectativas. Recomendo muito
+                            este site!</p>
                     </div>
                 </div>
                 <div class="review-tab">
@@ -112,13 +116,58 @@
                     </div>
                     <div class="text">
                         <p class="name">Daniel Brown</p>
-                        <p>A interface amigável tornou minha experiência de compra tranquila e agradável. Com certeza, 5 estrelas!
+                        <p>A interface amigável tornou minha experiência de compra tranquila e agradável. Com certeza, 5
+                            estrelas!
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <footer>
+        <div class="sections">
+            <!-- Seção Sobre Nós -->
+            <div class="section">
+                <h4>Sobre Nós</h4>
+                <p>O Alt+F4 é um e-commerce especializado em periféricos eletrônicos, oferecendo produtos de qualidade
+                    para aprimorar sua experiência com tecnologia.</p>
+            </div>
+
+            <!-- Seção Links Rápidos -->
+            <div class="section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#start" class="links">Início</a></li>
+                    <li><a href="#products" class="links">Produtos</a></li>
+                    <li><a href="suport.html" class="links">Ajuda</a></li>
+                </ul>
+            </div>
+
+            <!-- Seção Contato -->
+            <div class="section">
+                <h4>Contato</h4>
+                <p>Email: contato@altf4.com</p>
+                <p>Telefone: (11) 1234-5678</p>
+                <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+            </div>
+
+            <!-- Seção Redes Sociais -->
+            <div class="section">
+                <h4>Nos siga</h4>
+                <a href="https://facebook.com" target="_blank" class="socials"><i class="fa-brands fa-facebook fa-2xl"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://instagram.com" target="_blank" class="socials"><i class="fa-brands fa-instagram fa-2xl"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://twitter.com" target="_blank" class="socials"><i class="fa-brands fa-x-twitter fa-2xl"
+                        style="color: #ffffff;"></i></a>
+            </div>
+        </div>
+
+        <div class="all-rights-reserved">
+            <p>&copy; 2024 Alt+F4. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -136,6 +185,17 @@
             }
 
         });
+        function redirectToPage() {
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId");
+
+            if (lastLoginUserId) {
+                // Se houver um ID salvo, redireciona para a página de perfil
+                location.href = `profile.html?id=${lastLoginUserId}`;
+            } else {
+                // Se não houver ID salvo, redireciona para a página de login
+                location.href = 'login_registration.html';
+            }
+        }
     </script>
 
 </body>

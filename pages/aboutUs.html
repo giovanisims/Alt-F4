@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
+    <link rel="stylesheet" href="/css/pages/aboutUs.css">
+    <title>Sobre Nós</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'">
+        </div>
+        <nav id="navBar">
+            <ul class="menuBar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+                <li><a href="console.html">Console</a></li>
+                <li><a href="pc.html">PC</a></li>
+                <li><a href="suport.html">Suporte</a></li>
+                <li><a href="aboutUs.html">Sobre nós</a></li>
+            </ul>
+        </nav>
+        <div class="icons">
+            <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
+            <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
+            <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
+        </div>
+    </header>
+    <main>
+        <div class="pag">
+            <h1>Quem somos nós?</h1>
+            <p class="title">No Alt+F4, somos apaixonados por tecnologia e movidos pela missão de oferecer os melhores
+                periféricos para quem, assim como nós, entende a importância de um setup de qualidade. Nossa loja foi
+                criada com o propósito de conectar gamers, criadores de conteúdo e profissionais de tecnologia aos
+                equipamentos mais recentes e eficientes do mercado.
+
+                Com uma curadoria criteriosa, escolhemos produtos que combinam alta performance com durabilidade, sempre
+                com foco no que há de mais inovador no mundo dos periféricos eletrônicos. Se você está montando ou
+                aprimorando seu espaço de trabalho ou jogo, pode contar com a gente para oferecer soluções que elevam
+                sua experiência.
+
+                Aqui no Alt+F4, acreditamos que o atendimento vai além de vender produtos. Estamos sempre prontos para
+                oferecer suporte, compartilhar dicas e garantir que você encontre exatamente o que precisa, sem
+                complicação.
+            </p>
+        </div>
+        <div class="pag">
+            <h1>Nossa Linha do tempo</h1>
+            <p class="title">Acompanhe nossa jornada, desde a ideia inicial até nos tornarmos referência em periféricos
+                eletrônicos.</p>
+            <div class="timeline">
+                <img src="../images/timeLine.png" alt="linha do tempo">
+            </div>
+        </div>
+
+
+        <div class="pag">
+            <h1>Equipe</h1>
+            <p class="title">Veja quem está por trás desse e-commerce</p>
+            <div class="photo-tabs">
+                <div class="photo-tab cursor-none">
+                    <img id="giovani" src="../images/giovani.png">
+                    <h5>Giovani Simões</h5>
+                </div>
+                <div class="photo-tab cursor-none">
+                    <img id="livia" src="../images/livia.jpg" alt="">
+                    <h5>Livia Rosembach</h5>
+                </div>
+                <div class="photo-tab cursor-none">
+                    <img id="lucas" src="../images/lucas.png" alt="">
+                    <h5>Lucas Brisch</h5>
+                </div>
+                <div class="photo-tab cursor-none">
+                    <img id="sarah" src="../images/sarah.png" alt="">
+                    <h5>Sarah Maneira</h5>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="sections">
+            <!-- Seção Sobre Nós -->
+            <div class="section">
+                <h4>Sobre Nós</h4>
+                <p>O Alt+F4 é um e-commerce especializado em periféricos eletrônicos, oferecendo produtos de qualidade
+                    para aprimorar sua experiência com tecnologia.</p>
+            </div>
+
+            <!-- Seção Links Rápidos -->
+            <div class="section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="index.html#start" class="links">Início</a></li>
+                    <li><a href="index.html#products" class="links">Produtos</a></li>
+                    <li><a href="suport.html" class="links">Ajuda</a></li>
+                </ul>
+            </div>
+
+            <!-- Seção Contato -->
+            <div class="section">
+                <h4>Contato</h4>
+                <p>Email: contato@altf4.com</p>
+                <p>Telefone: (11) 1234-5678</p>
+                <p>Endereço: Rua Exemplo, 123 - São Paulo, SP</p>
+            </div>
+
+            <!-- Seção Redes Sociais -->
+            <div class="section">
+                <h4>Nos siga</h4>
+                <a href="https://facebook.com" target="_blank" class="socials"><i class="fa-brands fa-facebook fa-2xl"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://instagram.com" target="_blank" class="socials"><i class="fa-brands fa-instagram fa-2xl"
+                        style="color: #ffffff;"></i></a>
+                <a href="https://twitter.com" target="_blank" class="socials"><i class="fa-brands fa-x-twitter fa-2xl"
+                        style="color: #ffffff;"></i></a>
+            </div>
+        </div>
+
+        <div class="all-rights-reserved">
+            <p>&copy; 2024 Alt+F4. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('menuButton').addEventListener('click', function () {
+            const nav = document.getElementById("navBar");
+            const computedStyle = window.getComputedStyle(nav);
+            const display = computedStyle.display;
+
+            if (display === "none") {
+                nav.style.display = "flex";
+            }
+            else {
+                nav.style.display = "none";
+            }
+
+        });
+        function redirectToPage() {
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId");
+
+            if (lastLoginUserId) {
+                // Se houver um ID salvo, redireciona para a página de perfil
+                location.href = `profile.html?id=${lastLoginUserId}`;
+            } else {
+                // Se não houver ID salvo, redireciona para a página de login
+                location.href = 'login_registration.html';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

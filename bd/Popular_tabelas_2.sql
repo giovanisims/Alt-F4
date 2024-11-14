@@ -1,0 +1,117 @@
+USE altf4;
+
+-- RUN SCRIPTS IN THIS ORDER: FISICO -> TRIGGERS -> POPULAR TABELAS -> SELECTS -> PROCEDURES
+
+-- ALWAYS POPULATE PRODUCT AND CLIENTINFO FIRST
+  
+INSERT INTO Client (ClientID, Password, Birthdate, Username, Email, CPF, Name, CEP, Complement, Address, HouseNum, City, State, PhoneNumber) VALUES  
+(1, 'blue', '1990-01-01', 'john_doe', 'john@example.com', '123.456.789-00', 'John Doe', '12345-678', 'Apt 101', '123 Elm St', 101, 'Springfield', 'IL', '555-1234'),
+(2, 'green', '1985-05-15', 'jane_smith', 'jane@example.com', '234.567.890-11', 'Jane Smith', '22334-556', '', '789 Pine St', 303, 'Shelbyville', 'IL', '555-5678'),
+(3, 'red', '1992-08-22', 'bob_jones', 'bob@example.com', '345.678.901-22', 'Bob Jones', '55667-889', 'Suite 4A', '321 Maple Ave', 404, 'Capital City', 'IL', '555-8765'),
+(4, 'yellow', '1988-12-30', 'alice_wonder', 'alice@example.com', '456.789.012-33', 'Alice Wonder', '33445-667', '', '987 Cedar Ct', 606, 'Ogdenville', 'IL', '555-4321'),
+(5, 'purple', '1995-07-07', 'charlie_brown', 'charlie@example.com', '567.890.123-44', 'Charlie Brown', '44556-778', '', '432 Spruce Ln', 707, 'North Haverbrook', 'IL', '555-6789'),
+(6, 'orange', '1991-03-10', 'daisy_duck', 'daisy@example.com', '678.901.234-55', 'Daisy Duck', '88990-112', '', '543 Cherry St', 909, 'Springfield', 'IL', '555-9876'),
+(7, 'black', '1986-11-16', 'mike_tyson', 'mike@example.com', '789.012.345-66', 'Mike Tyson', '11223-334', '', '876 Chestnut Dr', 1010, 'Shelbyville', 'IL', '555-5432'),
+(8, 'white', '1993-06-05', 'lucy_heart', 'lucy@example.com', '890.123.456-77', 'Lucy Heart', '33456-778', '', '1010 Walnut Ave', 1111, 'Ogdenville', 'IL', '555-3456'),
+(9, 'silver', '1989-09-09', 'david_bowie', 'david@example.com', '901.234.567-88', 'David Bowie', '55667-991', '', '1111 Ash St', 1212, 'Capital City', 'IL', '555-6543'),
+(10, 'gold', '1994-04-04', 'freddie_mercury', 'freddie@example.com', '012.345.678-99', 'Freddie Mercury', '66778-223', '', '1212 Fir St', 1313, 'North Haverbrook', 'IL', '555-7890'),
+(11, 'navy', '1990-02-14', 'madonna', 'madonna@example.com', '112.233.445-56', 'Madonna', '77889-334', '', '1313 Poplar Rd', 1414, 'Brockway', 'IL', '555-0987'),
+(12, 'teal', '1987-08-18', 'elton_john', 'elton@example.com', '223.344.556-67', 'Elton John', '88990-445', '', '1414 Hemlock Ln', 1515, 'Springfield', 'IL', '555-2109'),
+(13, 'cyan', '1996-10-10', 'prince', 'prince@example.com', '334.455.667-78', 'Prince', '99001-556', '', '1515 Juniper Ave', 1616, 'Shelbyville', 'IL', '555-1098'),
+(14, 'magenta', '1983-05-05', 'tina_turner', 'tina@example.com', '445.566.778-89', 'Tina Turner', '00112-667', '', '1616 Redwood St', 1717, 'Ogdenville', 'IL', '555-3210'),
+(15, 'violet', '1982-11-11', 'michael_jackson', 'michael@example.com', '556.677.889-90', 'Michael Jackson', '11223-778', '', '1717 Palm Blvd', 1818, 'Capital City', 'IL', '555-4322');
+
+
+INSERT INTO Product (ProductID, Name, Rating, Price, Stock, URL, Type, Description) VALUES  
+(1, 'Logitech MX Master 3', 5, 99.99, 150, 'https://resource.logitech.com/content/dam/logitech/en/products/mice/mx-master-3s/gallery/mx-master-3s-mouse-top-view-graphite.png', 'Desktop', 'Experience precision and comfort with the Logitech MX Master 3, designed for seamless productivity with its advanced ergonomic design.'),
+(2, 'Corsair K95 RGB Platinum', 3, 199.99, 100, 'https://assets.corsair.com/image/upload/c_pad,q_85,h_1100,w_1100,f_auto/products/Gaming-Keyboards/CH-9127414-NA/Gallery/K95_PLATINUM_RGB_XT_01.webp', 'Desktop', 'Illuminate your gaming setup with the Corsair K95 RGB Platinum, featuring customizable RGB lighting and fast mechanical key switches.'),
+(3, 'SteelSeries Arctis 7', 4, 149.99, 200, 'https://media.steelseriescdn.com/thumbs/filer_public/b3/bd/b3bdb8b8-2400-4575-b874-8b25a808b820/purchase-gallery-arctis-7-2019-white-hero.png__1920x1080_crop-fit_optimize_subsampling-2.png', 'Desktop', 'Immerse yourself in rich sound with the SteelSeries Arctis 7, a wireless gaming headset designed for long-lasting comfort and exceptional audio quality.'),
+(4, 'Blue Yeti USB Microphone', 2, 129.99, 80, 'https://resource.logitechg.com/w_1600,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/streaming-gear/yeti-premium-usb-microphone/gallery/yeti-microphones-front-view-blackout.png', 'Desktop', 'Capture crystal clear sound with the Blue Yeti USB Microphone, perfect for podcasts, streaming, and professional audio recordings.'),
+(5, 'Logitech C920 HD Pro Webcam', 5, 79.99, 120, 'https://resource.logitech.com/w_1600,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/webcams/c920/gallery/c920-gallery-1.png', 'Desktop', 'Enhance your video calls with the Logitech C920 HD Pro Webcam, offering full HD 1080p video and clear stereo audio.'),
+(6, 'PlayStation DualSense Wireless Controller', 4, 75.99, 140, 'https://gmedia.playstation.com/is/image/SIEPDC/dualsense-controller-product-hero-01-en-20jul23?$1600px--t$', 'Console', 'Feel the next generation of gaming with the PlayStation DualSense Wireless Controller, featuring haptic feedback and adaptive triggers.'),
+(7, 'Xbox Elite Wireless Controller Series 2', 3, 179.99, 100, 'https://cms-assets.xboxservices.com/assets/91/92/91929eb6-9aed-4240-8a1e-b826889b3552.jpg?n=320089_Image-Priority-Image-768_Extended-Gameplay_1248x800.jpg', 'Console', 'Take control with the Xbox Elite Wireless Controller Series 2, offering customizable components and a tailored gaming experience.'),
+(8, 'G920/G29', 4, 299.99, 30, 'https://resource.logitechg.com/w_1600,c_limit,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/gaming/en/products/drivingforce/g920-gallery-1-2.png', 'Console', 'Get behind the wheel with precision racing controls with the Logitech G920/G29, featuring force feedback for a realistic driving experience.'),
+(9, 'Xbox Wireless Controller', 5, 59.99, 90, 'https://assets.xboxservices.com/assets/fa/b8/fab86afd-63d6-45a9-862f-798e5e45cda2.jpg?n=111101_Gallery-0_4_1350x759.jpg', 'Console', 'Enjoy responsive gaming with the Xbox Wireless Controller, designed for comfort and precision across your favorite games.'),
+(10, 'PlayStation Portal', 3, 299.99, 5, 'https://media.direct.playstation.com/is/image/sierialto/PS-portal-remoteplayer-minor-3?$Minor_Section_Desktop$', 'Console', 'Explore new gaming worlds with the PlayStation Portal, a cutting-edge remote player for immersive gaming experiences.'),
+(11, 'SteelSeries Stratus+', 4, 59.99, 80, 'https://m.media-amazon.com/images/I/61ge9lcMYUL.AC_SX679.jpg', 'Mobile', 'Game on the go with the SteelSeries Stratus+, featuring a sleek design and reliable Bluetooth connectivity for mobile gaming.'),
+(12, 'Nothing Ear (a)', 3, 94.99, 350, 'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/BA_360_CLEFFA_050_1001_1440x.png?v=1711614614', 'Mobile', 'Experience true wireless freedom with Nothing Ear (a), offering powerful sound and a minimalist design for everyday listening.'),
+(13, 'AirPods 4', 4, 129.99, 250, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-4-select-202409_FV1?wid=976&hei=916&fmt=jpeg&qlt=90&.v=1724717692997', 'Mobile', 'Listen effortlessly with AirPods 4, providing seamless connectivity and high-quality audio for music and calls.'),
+(14, 'Apple Watch Series 10', 3, 399.99, 60, 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/MXM23ref_FV99_VW_34FR+watch-case-46-aluminum-jetblack-nc-s10_VW_34FR+watch-face-46-aluminum-jetblack-s10_VW_34FR?wid=752&hei=720&bgc=fafafa&trim=1&fmt=p-jpg&qlt=80&.v=TnVrdDZWRlZzTURKbHFqOGh0dGpVRW5TeWJ6QW43NUFnQ2V4cmRFc1VnYUdWejZ5THhpKzJwRmRDYlhxN2o5aXB2QjR6TEZ4ZThxM3VqYkZobmlXM3RGNnlaeXQ4NGFKQTAzc0NGeHR2aVk0VEhOZEFKYmY1ZHNpalQ3YVhOWk9WVlBjZVFuazArV21YaFcvTVJ5dzR2eDMxaWg4TFhITTVrUW41Z084dENpYmZuSTdFUnErS0g3SWYxazQrNDdyRzE3K0tORmZaUy9vOVdqTEp2dmJNL3gwYlE3R0w4Z1RCbG9qQTd1MjYyL1owaE5aVCt2Ri82aDRacTg0bXlaZA', 'Mobile', 'Stay connected and active with the Apple Watch Series 10, offering advanced health tracking and seamless integration with your iPhone.'),
+(15, 'AirPods Pro 2', 5, 249.99, 110, 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-pro-2-hero-select-202409_FV1?wid=976&hei=916&fmt=jpeg&qlt=90&.v=1725492499003', 'Mobile', 'Enjoy active noise cancellation and superior sound quality with AirPods Pro 2, designed for immersive listening and comfort.');
+
+INSERT INTO `Order` (OrderID, ClientID, Status, DateTime) VALUES  
+(1, 1, 'Finalizada', '2023-01-10 10:30:00'),
+(2, 1, 'Pendente', '2023-01-15 12:00:00'),
+(3, 2, 'Finalizada', '2023-02-20 09:45:00'),
+(4, 3, 'Pendente', '2023-03-05 16:20:00'),
+(5, 3, 'Finalizada', '2023-03-10 11:05:00'),
+(6, 4, 'Finalizada', '2023-04-22 14:50:00'),
+(7, 5, 'Pendente', '2023-05-01 08:15:00'),
+(8, 6, 'Finalizada', '2023-06-18 18:30:00'),
+(9, 6, 'Pendente', '2023-06-25 10:45:00'),
+(10, 7, 'Finalizada', '2023-07-12 07:00:00'),
+(11, 8, 'Pendente', '2023-08-03 13:25:00'),
+(12, 9, 'Finalizada', '2023-09-15 21:10:00'),
+(13, 10, 'Pendente', '2023-10-08 15:40:00'),
+(14, 11, 'Finalizada', '2023-01-19 19:30:00'),
+(15, 12, 'Pendente', '2023-02-28 03:35:00'),
+(16, 13, 'Finalizada', '2023-03-23 12:50:00'),
+(17, 14, 'Pendente', '2023-04-17 18:25:00'),
+(18, 15, 'Finalizada', '2023-05-27 10:00:00'),
+(19, 15, 'Pendente', '2023-06-07 22:15:00'),
+(20, 14, 'Finalizada', '2023-06-29 14:45:00');
+
+-- Populate OrderProduct  
+INSERT INTO OrderProduct (OrderProductID, ProductID, OrderID, Amount) VALUES  
+(1, 1, 1, 2),
+(2, 2, 2, 1),
+(3, 3, 3, 3),
+(4, 4, 4, 1),
+(5, 5, 5, 2),
+(6, 6, 6, 1),
+(7, 7, 7, 3),
+(8, 8, 8, 1),
+(9, 9, 9, 2),
+(10, 10, 10, 1),
+(11, 11, 11, 1),
+(12, 12, 12, 3),
+(13, 13, 13, 1),
+(14, 14, 14, 1),
+(15, 15, 15, 1),
+(16, 1, 16, 2),
+(17, 2, 17, 1),
+(18, 3, 18, 1),
+(19, 4, 19, 3),
+(20, 5, 20, 1);
+
+INSERT INTO Review (ReviewID, ClientID, ProductID, Text, Rating) VALUES  
+(1, 1, 1, 'Great mouse, very responsive.', 4.5),
+(2, 2, 1, 'Not bad, but could be better.', 3.5),
+(3, 3, 2, 'Love the keyboard!', 5.0),
+(4, 4, 2, 'Good quality, but a bit loud.', 4.0),
+(5, 5, 3, 'Comfortable and great sound quality.', 4.5),
+(6, 6, 3, 'The mic is not very clear.', 3.0),
+(7, 7, 4, 'Excellent for recording podcasts.', 4.5),
+(8, 8, 4, 'Picks up too much background noise.', 3.5),
+(9, 9, 5, 'Good image quality.', 4.0),
+(10, 10, 5, 'Decent webcam for the price.', 4.0),
+(11, 11, 6, 'Loud and clear sound.', 4.5),
+(12, 12, 6, 'Battery life could be better.', 3.5),
+(13, 13, 7, 'Super fast data transfer.', 5.0),
+(14, 14, 7, 'Great for backups.', 4.5),
+(15, 15, 8, 'Colors are vivid and sharp.', 4.5),
+(16, 1, 8, 'Sleek design, love it.', 4.0),
+(17, 2, 9, 'Very intuitive for design work.', 4.5),
+(18, 3, 9, 'Takes a bit to get used to.', 3.5),
+(19, 4, 10, 'Amazing VR experience.', 5.0),
+(20, 5, 10, 'A bit pricey, but worth it.', 4.5),
+(21, 6, 11, 'Easy to set up, works well.', 4.0),
+(22, 7, 11, 'Not as bright as expected.', 3.5),
+(23, 8, 12, 'Small and handy.', 4.5),
+(24, 9, 12, 'Occasionally disconnects.', 3.0),
+(25, 10, 13, 'Convenient but slow charging.', 3.5),
+(26, 11, 13, 'Works with all my devices.', 4.0),
+(27, 12, 14, 'Feature-rich and reliable.', 4.5),
+(28, 13, 14, 'Battery drains quickly.', 3.0),
+(29, 14, 15, 'Great quality videos.', 4.5),
+(30, 15, 15, 'Easy to use and portable.', 4.0);

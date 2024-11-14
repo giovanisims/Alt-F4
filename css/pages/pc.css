@@ -1,0 +1,72 @@
+@import url('main.css');
+@import url('../layout/header.css');
+@import url('../components/cartPopUp.css');
+
+
+body{
+    font-family: 'Noto sans', sans-serif;
+}
+
+main{
+    display: flex;
+}
+
+.filters{
+    width: 25%;
+    height: 100vh;
+    border: 2px solid green;
+}
+
+.container {
+    width: 75%;
+    margin: 20px auto;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.productCard {
+    background-color: #fff;
+    margin: 10px;
+    width: 25%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer; 
+}
+
+.product-image{
+    width: 250px;
+    aspect-ratio: 3 / 2;
+}
+
+.productImage img {
+    max-width: 100%;
+}
+
+.productInfo {
+    padding: 15px;
+}
+
+.productInfo h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.8rem;
+    color: #333;
+    overflow-wrap: break-word; 
+    white-space: normal; 
+}
+
+.productInfo p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.productPrice {
+    font-size: 0.9rem;
+    color: #313715;
+}
+
+li:nth-child(4){
+    border-bottom: 1px solid #E8EBED;
+}

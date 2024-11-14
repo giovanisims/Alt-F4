@@ -9,13 +9,106 @@
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
     <title>Alt+F4</title>
-    <link rel="stylesheet" href="css/pages/profile.css">
+    <link rel="stylesheet" href="/css/pages/profile.css">
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('id');
+
+        const loadUser = () => {
+            fetch(`/user?id=${myParam}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    const main = document.getElementById('main');
+                    main.innerHTML = '';
+                    const item = document.createElement('div');
+                    item.className = 'top';
+                    item.innerHTML = `<i class="fa-solid fa-circle-user fa-2xl"></i><div class="name"><p>${data.Username}<br>${data.Email}</p></div>`;
+                    const item2 = document.createElement('div');
+                    item2.className = 'information';
+                    item2.innerHTML = `
+                    <div class="infos">
+                <div class="info">
+                    <label >Nome:</label >
+                    <input type="text" value="${data.Name}" readonly>
+                </div>
+                <div class="info">
+                    <label >Username:</label >
+                    <input type="text" value="${data.Username}" readonly>
+                </div>
+            </div>
+            <div class="infos">
+                <div class="info">
+                    <label >Data de Nascimento:</label >
+                    <input type="text" value="${data.Birthdate}" readonly>
+                </div>
+                <div class="info">
+                    <label >Telefone:</label >
+                    <input type="text" value="${data.PhoneNumber}" readonly>
+                </div>
+            </div>
+            <div class="infos">
+                <div class="info">
+                    <label >Email:</label >
+                    <input type="text" value="${data.Email}" readonly>
+                </div>
+                <div class="info">
+                    <label >CPF</label >
+                    <input type="text" value="${data.CPF}" readonly>
+                </div>
+            </div>
+            <div class="infos fourInfo">
+                <div class="info">
+                    <label >Endereço:</label >
+                    <input type="text" value="${data.Address}" readonly>
+                </div>
+                <div class="info">
+                    <label >Número</label >
+                    <input type="text" value="${data.HouseNum}" readonly>
+                </div>
+                <div class="info">
+                    <label >Complemento</label >
+                    <input type="text" value="${data.Complement}" readonly>
+                </div>
+                <div class="info">
+                    <label>CEP</label >
+                    <input type="text" value="${data.CEP}" readonly>
+                </div>
+            </div>
+            <div class="infos editInfo">
+                <div class="info">
+                    <label >Senha</label >
+                    <input type="text" value="********" readonly>
+                </div>
+                <div class="info">
+                    <button class="actions" type="button" onclick="logoutUser()">Sair</button>
+                    <button class="actions" type="button" onclick="location.href='crud_edit.html?id=${data.ClientID}&type=user'">Editar</button>
+                </div>
+            </div>`;
+                    main.appendChild(item);
+                    main.appendChild(item2);
+                })
+                .catch(error => console.error('Erro ao carregar os produtos', error));
+        }
+        document.addEventListener('DOMContentLoaded', loadUser);
+        function logoutUser() {
+            localStorage.removeItem("lastLoginUserId");
+            location.href = 'index.html';
+        }
+    </script>
 </head>
 
 <body>
     <header>
         <div class="logo">
-            <img src="images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'" style="cursor: pointer;">
+            <img src="../images/logo.png" alt="Alt+F4 Logo" onclick="location.href='index.html'"
+                style="cursor: pointer;">
         </div>
         <nav id="navBar">
             <ul class="menuBar">
@@ -23,83 +116,17 @@
                 <li><a href="mobile.html">Mobile</a></li>
                 <li><a href="console.html">Console</a></li>
                 <li><a href="pc.html">PC</a></li>
-                <li><a href="suporte.html">Suporte</a></li>
-                <li><a href="sobreNos.html">Sobre nós</a></li>
+                <li><a href="suport.html">Suporte</a></li>
+                <li><a href="aboutUs.html">Sobre nós</a></li>
             </ul>
         </nav>
         <div class="icons">
-            <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login_registration.html'"></i>
+            <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
             <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
             <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
         </div>
     </header>
-    <main>
-        <div class="top">
-            <i class="fa-solid fa-circle-user fa-2xl"></i>
-            <div class="name">
-                <p >Username<br>nome@email.com</p>
-            </div>
-        </div>
-        <div class="information">
-            <div class="infos">
-                <div class="info">
-                    <label >Nome:</label >
-                    <input type="text" placeholder="Nome Completo">
-                </div>
-                <div class="info">
-                    <label >Username:</label >
-                    <input type="text" placeholder="Username">
-                </div>
-            </div>
-            <div class="infos">
-                <div class="info">
-                    <label >Data de Nascimento:</label >
-                    <input type="text" placeholder="dd/mm/yyyy">
-                </div>
-                <div class="info">
-                    <label >Telefone:</label >
-                    <input type="text" placeholder="(00) 9999-9999">
-                </div>
-            </div>
-            <div class="infos">
-                <div class="info">
-                    <label >Email:</label >
-                    <input type="text" placeholder="nome@email.com">
-                </div>
-                <div class="info">
-                    <label >CPF</label >
-                    <input type="text" placeholder="000.000.000-00">
-                </div>
-            </div>
-            <div class="infos fourInfo">
-                <div class="info">
-                    <label >Endereço:</label >
-                    <input type="text" placeholder="R. Nome">
-                </div>
-                <div class="info">
-                    <label >Número</label >
-                    <input type="text" placeholder="000">
-                </div>
-                <div class="info">
-                    <label >Complemento</label >
-                    <input type="text" placeholder="Casa">
-                </div>
-                <div class="info">
-                    <label>CEP</label >
-                    <input type="text" placeholder="00.000-000">
-                </div>
-            </div>
-            <div class="infos editInfo">
-                <div class="info">
-                    <label >Senha</label >
-                    <input type="text" placeholder="********">
-                </div>
-                <div class="info">
-                    <button type="button">Editar</button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <main id="main"></main>
 </body>
 
 </html>

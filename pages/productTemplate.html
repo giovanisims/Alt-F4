@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
+    <link rel="stylesheet" href="/css/pages/productTemplate.css">
+    <title>Produto</title>
+
+</head>
+
+<body>
+    <div class="contentContainer">
+        <header>
+            <div class="logo">
+                <img src="../images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
+            </div>
+            <nav id="navBar">
+                <ul class="menuBar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mobile.html">Mobile</a></li>
+                    <li><a href="console.html">Console</a></li>
+                    <li><a href="pc.html">PC</a></li>
+                    <li><a href="suport.html">Suporte</a></li>
+                    <li><a href="aboutUs.html">Sobre nós</a></li>
+                </ul>
+            </nav>
+            <div class="icons">
+                <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
+                <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
+                <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
+            </div>
+        </header>
+        <main>
+            <div class="container" id="product"></div>
+        </main>
+        <div class="cartPopUp" id="cart"></div>
+        <script>
+            document.getElementById('menuButton').addEventListener('click', function () {
+                const nav = document.getElementById("navBar");
+                const computedStyle = window.getComputedStyle(nav);
+                const display = computedStyle.display;
+
+                if (display === "none") {
+                    nav.style.display = "flex";
+                }
+                else {
+                    nav.style.display = "none";
+                }
+            });
+
+        </script>
+        <script src="productTemplate.js"></script>
+</body>
+
+</html>

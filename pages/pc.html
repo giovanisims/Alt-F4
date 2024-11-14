@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/a97e2a6b17.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" type="image/png" href="images/pageIcon.png">
-    <link rel="stylesheet" href="css/pages/pc.css">
+    <link rel="stylesheet" href="/css/pages/pc.css">
     <title>PC</title>
 </head>
 
@@ -14,7 +14,7 @@
     <div class="contentContainer">
         <header>
             <div class="logo">
-                <img src="images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
+                <img src="../images/logo.png" alt=">Alt+F4 Logo" onclick="location.href='index.html'">
             </div>
             <nav id="navBar">
                 <ul class="menuBar">
@@ -22,126 +22,49 @@
                     <li><a href="mobile.html">Mobile</a></li>
                     <li><a href="console.html">Console</a></li>
                     <li><a href="pc.html">PC</a></li>
-                    <li><a href="suporte.html">Suporte</a></li>
-                    <li><a href="sobreNos.html">Sobre nós</a></li>
+                    <li><a href="suport.html">Suporte</a></li>
+                    <li><a href="aboutUs.html">Sobre nós</a></li>
                 </ul>
             </nav>
             <div class="icons">
-                <i class="fa-solid fa-circle-user colorIcons" onclick="location.href='login_registration.html'"></i>
+                <i class="fa-solid fa-circle-user colorIcons" onclick="redirectToPage()"></i>
                 <i class="fa-solid fa-cart-shopping colorIcons" onclick="location.href='cart.html'"></i>
                 <i id="menuButton" class="fa-solid fa-bars colorIcons"></i>
             </div>
         </header>
         <main>
-            <div class="pag">
-                <div class="img-lg img">
-                    <img src="images/keyboardPC.png" alt="">
-                    <div class="text">Keyboard<p>R$650,0</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-                <div class="imgs-s">
-                    <div class="img-s img">
-                        <img src="images/webcam.png" alt="">
-                        <div class="text">Webcam<p>R$629,0</p></div>
-                        <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                    </div>
-                    <div class="img-s img">
-                        <img src="images/mesaDigitalizadora.png" alt="">
-                        <div class="text">Mesa Digitalizadora<p>R$327,0</p></div>
-                        <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                    </div>
+            <div class="container">
+                <div class="products" id="products">
                 </div>
             </div>
-            <div class="pag">
-                <div class="img-2lg img">
-                    <img src="images/monitor1.png" alt="">
-                    <div class="text">Monitor<p>R$758,0</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-            </div>
-            <div class="pag">
-                <div class="img-s img">
-                    <img src="images/mousePC.png" alt="" >
-                    <div class="text">Mouse<p>R$129,0</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-                <div class="img-s img">
-                    <img src="images/mousepad.png" alt="">
-                    <div class="text">Mousepad<p>R$68,90</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-                <div class="img-s img">
-                    <img src="images/headsetPC.png" alt="">
-                    <div class="text">Headset<p>R$340,0</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-            </div>
-            <div class="pag">
-                <div class="img-m img">
-                    <img src="images/chair.png" alt="">
-                    <div class="text">Chair<p>R$599,90</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-                <div class="img-m img">
-                    <img src="images/microphone.png" alt="">
-                    <div class="text">Microphone<p>R$339,0</p></div>
-                    <i class="fa-solid fa-arrow-up fa-rotate-by" style="--fa-rotate-angle: 45deg;"></i>
-                </div>
-            </div>    
         </main>
-    </div>
-    <div class="cartPopUp" id="cart">
-        <div class="infoCart">
-            <div class="title">
-                <i class="fa-regular fa-circle-check"></i>
-                <p>Adicionado ao carrinho</p>
-                <i class="fa-solid fa-xmark" id="close"></i>
-            </div>
-            <div class="middle">
-                <img src="https://placehold.co/70">
-                <div class="infoProduct">
-                    <p>Nome Produto</p>
-                    <p>Tamanho</p>
-                    <p>R$000,0</p>
-                </div>
-            </div>
-            <button onclick="location.href='cart.html'">Ver carrinho</button>
-        </div>
-    </div>
-    <script>
-        document.getElementById('menuButton').addEventListener('click', function () {
-            const nav = document.getElementById("navBar");
-            const computedStyle = window.getComputedStyle(nav);
-            const display = computedStyle.display;
+        <script>
+            document.getElementById('menuButton').addEventListener('click', function () {
+                const nav = document.getElementById("navBar");
+                const computedStyle = window.getComputedStyle(nav);
+                const display = computedStyle.display;
 
-            if (display === "none") {
-                nav.style.display = "flex";
-            }
-            else {
-                nav.style.display = "none";
-            }
-        });
-
-        const buyButtons = document.getElementsByClassName('buyButton');
-        for (let i = 0; i < buyButtons.length; i++) {
-            buyButtons[i].addEventListener('click', function (event) {
-                event.preventDefault();
-                const cart = document.getElementById('cart');
-                const contentContainer = document.querySelector('.contentContainer');
-                document.body.classList.add('dimBackground');
-                contentContainer.classList.add('dimmed');
-                cart.style.display = "block";
+                if (display === "none") {
+                    nav.style.display = "flex";
+                }
+                else {
+                    nav.style.display = "none";
+                }
             });
-        }
+            function redirectToPage() {
+            const lastLoginUserId = localStorage.getItem("lastLoginUserId");
 
-        document.getElementById('close').addEventListener('click', function () {
-            const cart = document.getElementById('cart');
-            const contentContainer = document.querySelector('.contentContainer');
-            document.body.classList.remove('dimBackground');
-            contentContainer.classList.remove('dimmed');
-            cart.style.display = 'none';
-        });
-    </script>
+            if (lastLoginUserId) {
+                // Se houver um ID salvo, redireciona para a página de perfil
+                location.href = `profile.html?id=${lastLoginUserId}`;
+            } else {
+                // Se não houver ID salvo, redireciona para a página de login
+                location.href = 'login_registration.html';
+            }
+        }
+        </script>
+        <script src="getProducts.js"></script>
+        <script>document.addEventListener("DOMContentLoaded", loadProductsPC)</script>
 </body>
 
 </html>

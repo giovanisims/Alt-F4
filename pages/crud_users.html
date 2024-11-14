@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/pages/crud.css">
+    <title>Document</title>
+</head>
+<body id="userPage">
+    <h1>Users</h1>
+    <div class="search-container">
+        <input type="text" id="search" class="search-bar" placeholder="Pesquise pelo nome" onkeypress="if(event.key === 'Enter') searchUsers(document.getElementById('search').value)">
+        <button class="search-button" onclick="searchUsers(document.getElementById('search').value)">Buscar</button>
+        <button class="add-button" onclick="location.href='login_registration.html'">Adicionar</button>
+    </div>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>CEP</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            
+        </tbody>
+    </table>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="crud.js"></script>
+<script>document.addEventListener("DOMContentLoaded", getUsers)</script>
